@@ -63,12 +63,22 @@ int main(void) {
 	display_update();
 	
 	// display_image(96, icon);
-	display_image(0, icon2);
+	// display_image(0, icon2);
+	display_image2(0,0);
 	
 	// labinit(); /* Do any lab-specific initialization */
-
+	int x = 0;
+	int vx = 1;
 	while( 1 )
 	{
+		display_update();
+		display_image2(x,0);
+		x += vx;
+		if (x< 0 | x >= 128) {
+			vx = -vx;
+			x += vx;
+		}
+		delay(20);
 	//   labwork(); /* Do lab-specific things again and again */
 
 	}
