@@ -1,5 +1,10 @@
 # dtek-mini-project
 
+```
+make install TTYDEV=/dev/cu.usbserial-A503Q90J
+
+```
+
 ## Objective and Requirements
 Develop a game where the player controls a spaceship with a joystick. Enemies come at you randomly, and you use the button on the joystick to shoot at them. Obstacles move from right to left on the screen to simulate that the player is flying rapidly and the player can move the ship in X and Y directions across the screen using the joystick's roll and pitch. The player gains points for time stayed alive and/or enemies killed (and near misses?). This high score is stored and displayed. Two players can play at the same time and collaborate. In this mode the enemies are tougher to shoot down. The player can also select a higher difficulty level, which makes the ship fly faster and increases the amount of enemies and/or the enemies resilience. 
 
