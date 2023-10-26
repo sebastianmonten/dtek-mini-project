@@ -96,16 +96,16 @@ void labinit(void)
 
   // end of int2 initialization
 
-  enable_interrupt();
+  enable_interrupt(); // disabled by seb
   return;
 }
 
 /* This function is called repetitively from the main program */
 void labwork(void)
 {
-  prime = nextprime(prime);
-  display_string(0, itoaconv(prime));
-  display_update();
-  display_image(96, icon); // add doge icon 
+  // prime = nextprime(prime);
+  // display_string(0, itoaconv(prime));
+  // display_update();
+  // display_image(0, icon2); // add doge icon, old was 96
 
 }
