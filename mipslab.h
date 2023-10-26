@@ -14,6 +14,8 @@ void display_string(int line, char *s);
 void display_update(void);
 uint8_t spi_send_recv(uint8_t data);
 
+
+
 /* Declare lab-related functions from mipslabfunc.c */
 char * itoaconv( int num );
 void labwork(void);
@@ -41,6 +43,11 @@ extern const uint8_t const font[128*8];
 extern const uint8_t const icon[128];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
+
+// seb custom bitmap array declaration for circle
+/* Declare bitmap array containing icon */
+extern const uint8_t const icon2[128];
+extern const uint8_t const blank_data[128];
 
 /* Declare functions written by students.
    Note: Since we declare these functions here,

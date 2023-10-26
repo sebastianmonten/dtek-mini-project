@@ -141,6 +141,7 @@ void display_string(int line, char *s) {
 			textbuffer[line][i] = ' ';
 }
 
+
 void display_image(int x, const uint8_t *data) {
 	int i, j;
 	
@@ -183,6 +184,7 @@ void display_update(void) {
 		}
 	}
 }
+
 
 /* Helper function, local to this file.
    Converts a number to hexadecimal ASCII digits. */
