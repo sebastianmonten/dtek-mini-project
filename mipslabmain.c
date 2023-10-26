@@ -68,17 +68,24 @@ int main(void) {
 	
 	// labinit(); /* Do any lab-specific initialization */
 	int x = 0;
-	int vx = 1;
+	int vx = 2;
+	int y = 0;
+	int vy = 1;
 	while( 1 )
 	{
 		display_update();
-		display_image2(x,0);
+		display_image2(x, y);
 		x += vx;
+		y += vy;
 		if (x< 0 | x >= 128) {
 			vx = -vx;
 			x += vx;
 		}
-		delay(20);
+		if (y< 0 | y >= 4) {
+			vy = -vy;
+			y += vy;
+		}
+		delay(60);
 	//   labwork(); /* Do lab-specific things again and again */
 
 	}
