@@ -9,6 +9,7 @@
 
 /* Declare display-related functions from mipslabfunc.c */
 void display_image(int x, const uint8_t *data);
+void display_image2(int x, const uint8_t *data); // custom
 void display_init(void);
 void display_string(int line, char *s);
 void display_update(void);
