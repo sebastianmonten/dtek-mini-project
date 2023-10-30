@@ -11,6 +11,49 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
 
+#include "graphics.h"
+
+void display_buf(void) {
+	int i;
+	for (i = 0; i<4; i++) {
+		display_image(i*32, buf[i]);
+	}
+}
+
+void clear_buf(void) {
+	int i;
+	int j;
+	for (i = 0; i < 4; i++) {
+		for (j = 0; j < 128; j++) {
+			buf[i][j] = ~0;
+		}
+	}
+}
+
+void draw_to_buf(int x, int y, Sprite s) {
+	int sx;
+	int sy;
+	for (sy = 0; sy < s.height; sy++) {
+		for (sx = 0; sx < s.width; sx++) {
+			if (s.data[sy][sx]) {
+				int page = (x + sx) / 32;
+				if (page > 3) break;
+				if (sy > 32) break;
+				int local_x = (x + sx) % 32;
+
+				int index = sy / 8 + local_x;
+				int bitindex = 7 - (y % 8);
+
+				buf[page][index] &= ~(1 << bitindex);
+				
+			}
+			
+		}
+	}
+
+}
+
+
 int main(void) {
         /*
 	  This will set the peripheral bus clock to the same frequency
@@ -64,30 +107,35 @@ int main(void) {
 	
 	// display_image(96, icon);
 	// display_image(0, icon2);
-	display_image2(0,0);
+	// display_image2(0,0);
 	
 	// labinit(); /* Do any lab-specific initialization */
+	int y = 1;
 	int x = 0;
-	int vx = 2;
-	int y = 0;
-	int vy = 1;
+
+	display_buf();
+	// delay(1000);
+	// clear_buf();
+	// draw_to_buf(0, 0, ball);
+	// display_buf();
+	// delay(1000);
+	// draw_to_buf(32, 0, ball);
+	// display_buf();
 	while( 1 )
-	{
-		display_update();
-		display_image2(x, y);
-		x += vx;
-		y += vy;
-		if (x< 0 | x >= 128) {
-			vx = -vx;
-			x += vx;
-		}
-		if (y< 0 | y >= 4) {
-			vy = -vy;
-			y += vy;
-		}
-		delay(60);
+	{	
+		// display_buf();
+		// delay(1000);
 	//   labwork(); /* Do lab-specific things again and again */
 
 	}
 	return 0;
+
+
 }
+
+
+
+
+
+
+
