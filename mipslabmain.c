@@ -38,11 +38,13 @@ void draw_to_buf(int x, int y, Sprite s) {
 			if (s.data[sy][sx]) {
 				int page = (x + sx) / 32;
 				if (page > 3) break;
-				if (sy > 32) break;
+				if (sy + y >= 32) break;
+
 				int local_x = (x + sx) % 32;
 
-				int index = sy / 8 + local_x;
-				int bitindex = 7 - (y % 8);
+				int index = ((y + sy) / 8) * 32 + local_x;
+				// int bitindex = 7 - ((y + sy) % 8);
+				int bitindex = ((y + sy) % 8);
 
 				buf[page][index] &= ~(1 << bitindex);
 				
@@ -51,6 +53,29 @@ void draw_to_buf(int x, int y, Sprite s) {
 		}
 	}
 
+}
+
+void draw_to_buf_test(void) {
+	// int bitindex = 7;
+	// int page = 0;
+	// int index = 32;
+	buf[0][1] &= ~(1 << (7- 0));
+	buf[0][1] &= ~(1 << (7- 1));
+	buf[0][1] &= ~(1 << (7- 2));
+	buf[0][1] &= ~(1 << (7- 3));
+	buf[0][1] &= ~(1 << (7- 4));
+	buf[0][1] &= ~(1 << (7- 5));
+	buf[0][1] &= ~(1 << (7- 6));
+	buf[0][1] &= ~(1 << (7- 7));
+	
+	buf[0][32] &= ~(1 << (7- 0));
+	buf[0][32] &= ~(1 << (7- 1));
+	buf[0][32] &= ~(1 << (7- 2));
+	buf[0][32] &= ~(1 << (7- 3));
+	buf[0][32] &= ~(1 << (7- 4));
+	buf[0][32] &= ~(1 << (7- 5));
+	buf[0][32] &= ~(1 << (7- 6));
+	buf[0][32] &= ~(1 << (7- 7));
 }
 
 
@@ -110,10 +135,10 @@ int main(void) {
 	// display_image2(0,0);
 	
 	// labinit(); /* Do any lab-specific initialization */
-	int y = 1;
+	int y = 0;
 	int x = 0;
 
-	display_buf();
+	
 	// delay(1000);
 	// clear_buf();
 	// draw_to_buf(0, 0, ball);
@@ -121,10 +146,20 @@ int main(void) {
 	// delay(1000);
 	// draw_to_buf(32, 0, ball);
 	// display_buf();
+	// delay(1000);
+	// draw_to_buf(64, 0, ball);
+	// display_buf();
+	// delay(1000);
+	// draw_to_buf(96, 0, ball);
+	// display_buf();
 	while( 1 )
 	{	
-		// display_buf();
-		// delay(1000);
+		draw_to_buf(x, y, ball);
+		display_buf();
+		clear_buf();
+		delay(50);
+		x += 1;
+		y += 1;
 	//   labwork(); /* Do lab-specific things again and again */
 
 	}
