@@ -8,8 +8,11 @@
    For copyright and licensing, see file COPYING */
 
 /* Declare display-related functions from mipslabfunc.c */
+
+#include "graphics.h"
+
 void display_image(int x, const uint8_t *data);
-void display_image2(int x, const uint8_t *data); // custom
+void display_image2(); // custom seb
 void display_init(void);
 void display_string(int line, char *s);
 void display_update(void);
@@ -47,7 +50,10 @@ extern char textbuffer[4][16];
 
 // seb custom bitmap array declaration for circle
 /* Declare bitmap array containing icon */
-extern const uint8_t const icon2[128];
+extern uint8_t icon2[128];
+extern uint8_t buf[4][128];
+extern Sprite ball;
+extern Sprite ball2;
 extern const uint8_t const blank_data[128];
 
 /* Declare functions written by students.
