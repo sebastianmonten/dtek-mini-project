@@ -161,6 +161,7 @@ int main(void) {
 	while( 1 )
 	{	
 		draw_to_buf(x, y, ball);
+		// put_line(0, 0, 4, 4);
 		draw_to_buf(x2, y2, ball2);
 		display_buf();
 		clear_buf();
