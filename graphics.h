@@ -15,11 +15,15 @@ typedef struct {
     unsigned char data[SCREEN_HEIGHT][SCREEN_WIDTH];
 } Screen;
 
-// A pointer to the screen.
+// A pointer to the screen's graphics data, for direct screen manipulation.
 // Currently NULL because we currently have no idea where video data is stored.
-// Can be changed later to a non-pointer by dereferencing it in this
-// definition.
-#define SCREEN ((Screen*) NULL);
+// Can be changed later to a non-pointer by dereferencing it in this definition.
+#define SCREEN ((Screen*) NULL)
+
+// A pointer to the frame buffer.
+// Currently NULL but will be set at program start.
+// Can be changed later to a non-pointer by dereferencing it in this definition.
+#define BUFFER ((Screen*) NULL)
 
 /* Direct pixel manipulation */
 
