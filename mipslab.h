@@ -51,7 +51,6 @@ extern char textbuffer[4][16];
 // seb custom bitmap array declaration for circle
 /* Declare bitmap array containing icon */
 extern uint8_t icon2[128];
-extern uint8_t buf[4][128];
 extern Sprite ball;
 extern Sprite ball2;
 extern const uint8_t const blank_data[128];

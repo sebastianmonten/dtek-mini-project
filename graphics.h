@@ -1,11 +1,10 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
-#include "mipslab.h"
+#include <stdint.h>
 
 // sample values for now
 #define SCREEN_WIDTH (128)
 #define SCREEN_HEIGHT (64)
-
 
 typedef struct {
     uint8_t** data;
@@ -22,10 +21,8 @@ typedef struct {
 // Can be changed later to a non-pointer by dereferencing it in this definition.
 #define SCREEN ((Screen*) NULL)
 
-// A pointer to the frame buffer.
-// Currently NULL but will be set at program start.
-// Can be changed later to a non-pointer by dereferencing it in this definition.
-Screen* BUFFER;
+// A frame buffer.
+extern uint8_t buf[4][128];
 
 /* Direct pixel manipulation */
 // should perhaps be a macro? or inline?
