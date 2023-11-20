@@ -35,13 +35,14 @@ void toggle_pixel(int x, int y);
 
 /* Drawing shapes */
 
-void put_circle(int x, int y, int rad);
-void put_line(int x1, int y1, int x2, int y2);
-void put_rectangle(int x1, int y1, int x2, int y2);
+void put_circle(int x, int y, int rad); // not so optimized
+void put_line(int x1, int y1, int x2, int y2); // not so optimized
+void put_rectangle(int x1, int y1, int x2, int y2); // super not optimized
 void put_sprite(int x, int y, const Sprite* sprite);
 
 /* Drawing to the frame buffer */
 void draw_to_buf(int x, int y, Sprite s);
+void clear_buf(void);
 void display_buf(void);
 
 
