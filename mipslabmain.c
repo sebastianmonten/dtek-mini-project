@@ -138,6 +138,12 @@ int main(void) {
 	int y = 0;
 	int x = 0;
 
+	int y2 = 0;
+	int x2 = 110;
+
+	int v = 1;
+	int v2 = -1;
+
 	
 	// delay(1000);
 	// clear_buf();
@@ -155,11 +161,20 @@ int main(void) {
 	while( 1 )
 	{	
 		draw_to_buf(x, y, ball);
+		draw_to_buf(x2, y2, ball2);
 		display_buf();
 		clear_buf();
 		delay(50);
-		x += 1;
-		y += 1;
+		x += v;
+		x2 += v2;
+
+		if (x > 128 - ball.width) {
+			v = -v;
+		}
+
+		if (x2 < 0) {
+			v2 = -v2;
+		}
 	//   labwork(); /* Do lab-specific things again and again */
 
 	}
