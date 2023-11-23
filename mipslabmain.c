@@ -80,10 +80,13 @@ int main(void) {
 	
 	while( 1 )
 	{	
-		draw_to_buf(x, y, ball);
+		// draw_to_buf(x, y, ball);
+		// put_line(x+0, y+0, x+16, y+16);
+		put_line(x+0, y+16, x+16, y+0);
 		display_buf();
 		clear_buf();
 		x += 1;
+
 		delay(50);
 	//   labwork(); /* Do lab-specific things again and again */
 
