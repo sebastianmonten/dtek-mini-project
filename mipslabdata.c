@@ -253,6 +253,8 @@ Sprite ball = {
     },
     .width = 15,
     .height = 15,
+	.x_origin = 0,
+	.y_origin = 0
 };
 
 Sprite ball2 = {
@@ -274,7 +276,9 @@ Sprite ball2 = {
 		(uint8_t[]) {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     },
     .width = 15,
-    .height = 15};
+    .height = 15,
+	.x_origin = 0,
+	.y_origin = 0};
 
 
 const uint8_t blank_data[] = {
