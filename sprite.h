@@ -3,11 +3,11 @@
 #define SPRITE_H
 
 typedef struct {
-    const uint8_t** data;
-    const int width;
-    const int height;
-    const int x_origin;
-    const int y_origin;
+    uint8_t** data;
+    int width;
+    int height;
+    int x_origin;
+    int y_origin;
 } Sprite;
 
 #endif
