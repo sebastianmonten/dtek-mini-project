@@ -12,7 +12,6 @@
 #include "graphics.h"
 
 void display_image(int x, const uint8_t *data);
-void display_image2(); // custom seb
 void display_init(void);
 void display_string(int line, char *s);
 void display_update(void);
@@ -54,6 +53,7 @@ extern uint8_t icon2[128];
 extern Sprite ball;
 extern Sprite ball2;
 extern const uint8_t const blank_data[128];
+// extern char buf[4][128]; // main buffer
 
 /* Declare functions written by students.
    Note: Since we declare these functions here,

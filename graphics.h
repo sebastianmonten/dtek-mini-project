@@ -1,16 +1,17 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 #include <stdint.h>
+#include "sprite.h"
 
 // sample values for now
 #define SCREEN_WIDTH (128)
 #define SCREEN_HEIGHT (64)
 
-typedef struct {
-    uint8_t** data;
-    int width;
-    int height;
-} Sprite;
+// typedef struct {
+//     uint8_t** data;
+//     int width;
+//     int height;
+// } Sprite;
 
 typedef struct {
     uint8_t data[SCREEN_HEIGHT][SCREEN_WIDTH];
