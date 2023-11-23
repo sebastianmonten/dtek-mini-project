@@ -1,8 +1,5 @@
 #include "graphics.h"
 #define SWAP(x, y) do {x ^= y; y ^= x; x ^= y;} while (0); 
-#include "mipslab.h"
-#include "mipslabdata.h"
-
 void set_pixel(int x, int y) {
     // out of bounds heck
     if (x > 127 || y > 31)
@@ -29,23 +26,24 @@ void set_pixel_unchecked(int x, int y) {
 
 // bresenham's line algo
 void put_line(int x1, int y1, int x2, int y2) {  
-    // always go from top left to bottom right
+    // always go from left to right
     if (x1 > x2)
         SWAP(x1, x2);
-    if (y1 > y2)
-        SWAP(y1, y2);
+//    if (y1 > y2)
+//        SWAP(y1, y2);
 
     int 
     dx = x2 - x1, // delta x
     dy = y2 - y1, // delta y
     x = x1, // starting x
     y = y1, // starting y
-    p = 2 * (dy - dx); // discriminator 
+    p = 2 * (dy - dx); // discriminator
+	int line_sign = y2 > y1 ? 1 : -1; 
     while (x < x2) {  
         set_pixel(x, y);
-        if(p >= 0) {  
-            y++;  
+        if(p >= 0) {    
             p += 2*(dy-dx);  
+			y += line_sign;
         } else {  
             p += 2*dy;}  
             x++;  
@@ -58,15 +56,15 @@ void draw_to_buf(int x, int y, Sprite s) {
 	for (sy = 0; sy < s.height; sy++) {
 		for (sx = 0; sx < s.width; sx++) {
 			if (s.data[sy][sx]) {
-				int page = (x + sx) / 32;
+				int page = (x + sx - s.x_origin) / 32;
 				if (page > 3) break;
-				if (sy + y >= 32) break;
+				if (sy + y - s.y_origin >= 32) break;
 
-				int local_x = (x + sx) % 32;
+				int local_x = (x + sx - s.x_origin) % 32;
 
-				int index = ((y + sy) / 8) * 32 + local_x;
+				int index = ((y + sy - s.y_origin) / 8) * 32 + local_x;
 				// int bitindex = 7 - ((y + sy) % 8);
-				int bitindex = ((y + sy) % 8);
+				int bitindex = ((y + sy - s.y_origin) % 8);
 
 				buf[page][index] &= ~(1 << bitindex);
 				
@@ -115,4 +113,8 @@ void draw_to_buf_test(void) {
 	buf[0][32] &= ~(1 << (7- 5));
 	buf[0][32] &= ~(1 << (7- 6));
 	buf[0][32] &= ~(1 << (7- 7));
+}
+
+void put_circle(int x, int y, int rad) {
+    // will add bresenham algo later..
 }
