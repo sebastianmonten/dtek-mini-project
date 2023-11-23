@@ -295,10 +295,10 @@ const uint8_t blank_data[] = {
 Object test_ball = {
     .sprite = &ball,
     .x = 20,
-    .y = 20,
+    .y = 10,
     .x_speed = 4,
     .y_speed = 0,
-    .bonus_data = NULL,
+    .bonus_data = (void *) 0,
     .bonus_data_size = 0,
     .update_func = bounce_ball_ai
 };

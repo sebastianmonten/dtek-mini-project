@@ -3,14 +3,19 @@
 void bounce_ball_ai(Object* ball) {
     update_object_general(ball);
 
-    if (ball->x <= 10)
-        ball->x_speed = 4;
+    if((ball->x <= 0) || (ball->x >= 128-(ball->sprite->width))) {
+        ball->x_speed *= -1;
+    }
 
-    else if (ball->x <= 118)
-        ball->x_speed = -4;
+    // if (ball->x <= 0)
+    //     ball->x_speed = 4;
+
+    // else if (ball->x >= 128-(ball->sprite->width))
+    //     ball->x_speed = -4;
 }
 
-void draw_object(Object* o) {
+void draw_object(void* p) {
+    Object* o = (Object*) p;
     draw_to_buf(o->x, o->y, *(o->sprite));
 }
 

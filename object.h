@@ -20,12 +20,12 @@ typedef struct {
 
     // update_func is a void function that takes an Object* as its only parameter.
     // i assume most Objects will share a common Update function.
-    void (*update_func)(Object*); 
+    void (*update_func)(void*); 
 } Object;
 
 // extern Object objects[100];
 
-void draw_object(Object* o, int draw_mode);
+void draw_object(void* o);
 void bounce_ball_ai(Object* ball);
 
 #endif

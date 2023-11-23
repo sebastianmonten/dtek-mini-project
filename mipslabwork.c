@@ -46,6 +46,7 @@ void user_isr(void)
   }
 
   if (((IFS(0) >> 8)) & 1) {
+    // happens every 10 ms
     timeoutcount++;
     IFSCLR(0) = 0b100000000; // =  0x100
   }
@@ -55,6 +56,8 @@ void user_isr(void)
     if (!triple) {
       tick(&mytime);
     }
+
+    // THIS BLOCK HAPPWNS EVERY 100ms
     time2string(textstring, mytime);
     display_string(3, textstring);
     display_update();

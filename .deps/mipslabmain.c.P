@@ -2,9 +2,9 @@ mipslabmain.c.o: mipslabmain.c \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/stdint.h \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdint-gcc.h \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h \
- mipslab.h graphics.h sprite.h mipslabdata.h
+ mipslab.h graphics.h sprite.h mipslabdata.h object.h
 mipslabmain.c :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/stdint.h :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdint-gcc.h :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h :
- mipslab.h graphics.h sprite.h mipslabdata.h :
+ mipslab.h graphics.h sprite.h mipslabdata.h object.h :
