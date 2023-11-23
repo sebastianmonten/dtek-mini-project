@@ -7,7 +7,7 @@
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
-#include "sprite.h"
+#include "object.h"
 #include "mipslabdata.h" // test by me now
 
 char textbuffer[4][16];
@@ -290,4 +290,15 @@ const uint8_t blank_data[] = {
     0b00000000,
     0b00000000,
     0b00000000,
+};
+
+Object test_ball = {
+    .sprite = &ball,
+    .x = 20,
+    .y = 20,
+    .x_speed = 4,
+    .y_speed = 0,
+    .bonus_data = NULL,
+    .bonus_data_size = 0,
+    .update_func = bounce_ball_ai
 };

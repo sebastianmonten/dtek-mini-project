@@ -11,7 +11,7 @@ void bounce_ball_ai(Object* ball) {
 }
 
 void draw_object(Object* o) {
-    draw_to_buf(o->x, o->y, o->sprite);
+    draw_to_buf(o->x, o->y, *(o->sprite));
 }
 
 void update_object(Object* o) {
