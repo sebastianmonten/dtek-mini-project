@@ -1,4 +1,5 @@
 #include "graphics.h"
+#include "mipslabdata.h"
 #define SWAP(x, y) do {x ^= y; y ^= x; x ^= y;} while (0); 
 void set_pixel(int x, int y) {
     // out of bounds heck
