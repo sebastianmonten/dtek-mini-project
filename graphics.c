@@ -43,7 +43,7 @@ void put_line(int x1, int y1, int x2, int y2) {
         set_pixel(x, y);
         if(p >= 0) {    
             p += 2*(dy-dx);  
-			y++;
+			y += line_sign;
         } else {  
             p += 2*dy;}  
             x++;  
