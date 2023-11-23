@@ -30,25 +30,35 @@ void put_line(int x1, int y1, int x2, int y2) {
     // always go from left to right
     if (x1 > x2)
         SWAP(x1, x2);
-//    if (y1 > y2)
-//        SWAP(y1, y2);
+	if (y1 > y2)
+		SWAP(y1, y2);
+	int dx = x2 - x1;
+    int dy = y2 - y1;
+    int sx = x1 < x2 ? 1 : -1;
+    int sy = y1 < y2 ? 1 : -1;
 
-    int 
-    dx = x2 - x1, // delta x
-    dy = y2 - y1, // delta y
-    x = x1, // starting x
-    y = y1, // starting y
-    p = 2 * (dy - dx); // discriminator
-	int line_sign = y2 > y1 ? 1 : -1; 
-    while (x < x2) {  
-        set_pixel(x, y);
-        if(p >= 0) {    
-            p += 2*(dy-dx);  
-			y += line_sign;
-        } else {  
-            p += 2*dy;}  
-            x++;  
-        }  
+    int err = dx - dy;
+    int err2;
+
+    while (x1 != x2 || y1 != y2) {
+        set_pixel(x1, y1);
+
+        err2 = 2 * err;
+
+        if (err2 > -dy) {
+            err -= dy;
+            x1 += sx;
+        }
+
+        if (err2 < dx) {
+            err += dx;
+            y1 += sy;
+        }
+    }
+
+    // Ensure the last pixel is drawn
+    set_pixel(x2, y2);
+		  
 }
 
 void draw_to_buf(int x, int y, Sprite s) {
