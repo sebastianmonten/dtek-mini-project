@@ -124,22 +124,29 @@ void labwork(void)
   // display_string(0, itoaconv(prime));
   // display_update();
   // display_image(0, icon2); // add doge icon, old was 96
-    if (joy_x < 500) {
-      x_global -= 2;
-    } else if (joy_x > 800) {
-      x_global += 2;
+
+    int joy_x_threshold_upper = 740;
+    int joy_x_threshold_lower = 720;
+
+    int joy_y_threshold_upper = 745;
+    int joy_y_threshold_lower = 775;
+    
+    if (joy_x < joy_x_threshold_lower) {
+      x_global -= 3;
+    } else if (joy_x > joy_x_threshold_upper) {
+      x_global += 3;
     }
-    if (joy_y < 500) {
-      y_global -= 2;
-    } else if (joy_y > 800) {
-      y_global += 2;
+    if (joy_y < joy_y_threshold_lower) {
+      y_global -= 3;
+    } else if (joy_y > joy_y_threshold_upper) {
+      y_global += 3;
     }
-  	// put_line(x_global, 0, x_global, 16);
 
     draw_to_buf(x_global, y_global, ball);
 		display_buf();
-    // display_string(0, itoaconv(joy_x));
+    clear_buf();
+    // display_string(0, itoaconv(joy_y));
     // display_update();
-		clear_buf();
+
 
 }
