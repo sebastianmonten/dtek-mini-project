@@ -27,5 +27,6 @@ typedef struct {
 
 void draw_object(void* o);
 void bounce_ball_ai(Object* ball);
+void update_object_general(Object* o);
 
 #endif
