@@ -75,7 +75,7 @@ int main(void) {
 	// display_image(0, icon2);
 	// display_image2(0,0);
 	
-	// labinit(); /* Do any lab-specific initialization */
+	labinit(); /* Do any lab-specific initialization */
 	int y = 0;
 	int x = 0;
 
@@ -84,16 +84,15 @@ int main(void) {
 	{	
 		// draw_to_buf(x, y, ball);
 		// put_line(x+0, y+0, x+16, y+16);
-		put_line(0, 0, 16, 16);
+		// put_line(0, 0, 16, 16);
+		// display_buf();
+		// clear_buf();
 		
-		display_buf();
-		clear_buf();
-		
-		x += 1;
+		// x += 1;
 
-		update_object(&test_ball);
+		// update_object(&test_ball);
 		delay(50);
-	//   labwork(); /* Do lab-specific things again and again */
+	  	labwork(); /* Do lab-specific things again and again */
 
 	}
 	return 0;

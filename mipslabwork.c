@@ -15,10 +15,17 @@
 #include "mipslab.h" /* Declatations for these labs */
 
 // #include "time4io.h" // include
+#include "adc.h"
 
 // OUR GLOBAL VARIABLES
 int timeoutcount = 0;
 int prime = 1234567;
+int joy_x = 0;
+int joy_y = 0;
+
+// GLOBAL FOR BALL COORD
+int y_global = 0;
+int x_global = 0;
 // END OF OUR GLOBAL VARIABLES
 
 int mytime = 0x5957;
@@ -39,16 +46,20 @@ void user_isr(void)
     tick(&mytime);
     IFSCLR(0) = 1 << 11; // clear bit 11
 
-    time2string(textstring, mytime);
-    display_string(3, textstring);
-    display_update();
-    display_image(96, icon); // add doge icon 
+    // time2string(textstring, mytime);
+    // display_string(3, textstring);
+    // display_update();
+    // display_image(96, icon); // add doge icon 
   }
 
   if (((IFS(0) >> 8)) & 1) {
     // happens every 10 ms
     timeoutcount++;
     IFSCLR(0) = 0b100000000; // =  0x100
+
+    // PROBE A1 and A2 for x and y of joystick
+    joy_x = adc_at_pin(4); // A1
+    joy_y = adc_at_pin(8); // A2
   }
   
 
@@ -58,10 +69,13 @@ void user_isr(void)
     }
 
     // THIS BLOCK HAPPWNS EVERY 100ms
-    time2string(textstring, mytime);
-    display_string(3, textstring);
-    display_update();
-    display_image(96, icon); // add doge icon 
+    // time2string(textstring, mytime);
+    // display_string(0, "joy x = ");
+    // display_string(1, itoaconv(joy_x));
+    // display_update();
+    // display_update();
+    // display_image(96, icon); // add doge icon 
+    ////////////////////////////////////////////
     timeoutcount = 0;
   }
 }
@@ -110,5 +124,22 @@ void labwork(void)
   // display_string(0, itoaconv(prime));
   // display_update();
   // display_image(0, icon2); // add doge icon, old was 96
+    if (joy_x < 500) {
+      x_global -= 2;
+    } else if (joy_x > 800) {
+      x_global += 2;
+    }
+    if (joy_y < 500) {
+      y_global -= 2;
+    } else if (joy_y > 800) {
+      y_global += 2;
+    }
+  	// put_line(x_global, 0, x_global, 16);
+
+    draw_to_buf(x_global, y_global, ball);
+		display_buf();
+    // display_string(0, itoaconv(joy_x));
+    // display_update();
+		clear_buf();
 
 }

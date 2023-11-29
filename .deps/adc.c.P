@@ -1,0 +1,4 @@
+adc.c.o: adc.c \
+ /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h
+adc.c :
+ /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h :
