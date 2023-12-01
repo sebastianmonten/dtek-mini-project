@@ -146,12 +146,23 @@ void display_string(int line, char *s) {
 
 void display_string(int line, char* s) {
 
-char ch = (char) s;
-// draw only a char right now
-int i;
-for (i = 0; i < 8; i++) {
-  buf[0][i] = ~font[ch * 8 + i];
-}
+  int x = 0, local_x = 0;
+  int page = 0;
+
+  while (*s) {
+
+    // putchar
+    int j = 0;
+    for (j = 0; j < 8; j++) {
+      buf[page][j + local_x] = ~font[ch * 8 + j];
+    }
+
+    x += 8;
+    s++;
+    page = x / 32;
+    local_x = x % 32;
+
+  }
 
 }
 
