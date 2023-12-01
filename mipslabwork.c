@@ -128,8 +128,8 @@ void labwork(void)
     int joy_x_threshold_upper = 740;
     int joy_x_threshold_lower = 720;
 
-    int joy_y_threshold_upper = 745;
-    int joy_y_threshold_lower = 775;
+    int joy_y_threshold_upper = 770;
+    int joy_y_threshold_lower = 750;
     
     if (joy_x < joy_x_threshold_lower) {
       x_global -= 3;
