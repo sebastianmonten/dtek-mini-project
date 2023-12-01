@@ -156,7 +156,7 @@ void labwork(void)
     // display_buf();
     // clear_buf();
 
-    display_string(0, 'x');
+    display_string(0, "hej");
     update_object(&player);
     display_buf();
     clear_buf();

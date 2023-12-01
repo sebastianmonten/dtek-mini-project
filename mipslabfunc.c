@@ -154,13 +154,17 @@ void display_string(int line, char* s) {
     // putchar
     int j = 0;
     for (j = 0; j < 8; j++) {
-      buf[page][j + local_x] = ~font[ch * 8 + j];
+      buf[page][j + local_x] = ~font[(*s) * 8 + j];
     }
 
     x += 8;
     s++;
     page = x / 32;
     local_x = x % 32;
+
+    if (x > 127) {
+      return;
+    }
 
   }
 
