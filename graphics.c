@@ -3,7 +3,7 @@
 #define SWAP(x, y) do {x ^= y; y ^= x; x ^= y;} while (0); 
 void set_pixel(int x, int y) {
     // out of bounds heck
-    if (x > 127 || y > 31)
+    if (x > 127 || y > 31 || x < 0 || y < 0)
         return;
 
     int page = x / 32;
@@ -17,7 +17,7 @@ void set_pixel(int x, int y) {
     buf[page][index] &= ~(1 << bitindex);
 }
 
-void set_pixel_unchecked(int x, int y) {
+static void set_pixel_unchecked(int x, int y) {
     int page = x / 32;
     int local_x = x % 32;
     int index = (y / 8) * 32 + local_x;
@@ -25,18 +25,35 @@ void set_pixel_unchecked(int x, int y) {
     buf[page][index] &= ~(1 << bitindex);
 }
 
-// bresenham's line algo
-// nvm just horizontal line
+// dont use this, use put_line_horizontal or put_line_vertical
 void put_line(int x1, int y1, int x2, int y2) {  
-    // always go from left to right
-    if (x1 > x2)
-        SWAP(x1, x2);
+    return;
+}
 
-	while (x1 < x2) {
-		set_pixel(x1, y1);
+void put_line_horizontal(int x1, int x2, int y) {
+	if (x1 > x2)
+		SWAP(x1, x2);
+	
+	if (y < Y_MIN || y > Y_MAX)
+		return;
+
+	while (x1 <= x2 && x1 < SCREEN_WIDTH) {
+		set_pixel_unchecked(x1, y);
 		x1++;
 	}
-		  
+}
+
+void put_line_vertical(int y1, int y2, int x) {
+	if (y1 > y2)
+		SWAP(y1, y2);
+	
+	if (x < X_MIN || x > X_MAX)
+		return;
+
+	while (y1 <= y2 && y1 < SCREEN_WIDTH) {
+		set_pixel_unchecked(x, y1);
+		y1++;
+	}
 }
 
 void draw_to_buf(int x, int y, Sprite s) {
