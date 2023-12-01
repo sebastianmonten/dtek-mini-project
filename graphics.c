@@ -63,8 +63,8 @@ void draw_to_buf(int x, int y, Sprite s) {
 		for (sx = 0; sx < s.width; sx++) {
 			if (s.data[sy][sx]) {
 				int page = (x + sx - s.x_origin) / 32;
-				if (page > 3) break;
-				if (sy + y - s.y_origin >= 32) break;
+				if (page > 3 || page < 0) break;
+				if (sy + y - s.y_origin >= 32 || sy + y - s.y_origin < 0) break;
 
 				int local_x = (x + sx - s.x_origin) % 32;
 
