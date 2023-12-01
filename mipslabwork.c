@@ -21,9 +21,9 @@
 // OUR GLOBAL VARIABLES
 int timeoutcount = 0;
 int prime = 1234567;
-int joy_x = 0;
-int joy_y = 0;
-int joy_sw = 0;
+// int joy_x = 0;
+// int joy_y = 0;
+// int joy_sw = 0;
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -130,28 +130,30 @@ void labwork(void)
 
 
 
-    int joy_x_threshold_upper = 740;
-    int joy_x_threshold_lower = 720;
+    // int joy_x_threshold_upper = 740;
+    // int joy_x_threshold_lower = 720;
 
-    int joy_y_threshold_upper = 770;
-    int joy_y_threshold_lower = 750;
+    // int joy_y_threshold_upper = 770;
+    // int joy_y_threshold_lower = 750;
     
-    if (joy_x < joy_x_threshold_lower && x_global - 3 > 0) {
-      x_global -= 3;
-    } else if (joy_x > joy_x_threshold_upper && x_global+ ball.width + 3 < SCREEN_WIDTH) {
-      x_global += 3;
-    }
-    if (joy_y < joy_y_threshold_lower && y_global - 3 > 0) {
-      y_global -= 3;
-    } else if (joy_y > joy_y_threshold_upper && y_global + ball.height + 3 < SCREEN_HEIGHT) {
-      y_global += 3;
-    }
+    // if (joy_x < joy_x_threshold_lower && x_global - 3 > 0) {
+    //   x_global -= 3;
+    // } else if (joy_x > joy_x_threshold_upper && x_global+ ball.width + 3 < SCREEN_WIDTH) {
+    //   x_global += 3;
+    // }
+    // if (joy_y < joy_y_threshold_lower && y_global - 3 > 0) {
+    //   y_global -= 3;
+    // } else if (joy_y > joy_y_threshold_upper && y_global + ball.height + 3 < SCREEN_HEIGHT) {
+    //   y_global += 3;
+    // }
     // draw_to_buf(x_global, y_global, ball);
 		// display_buf();
     // clear_buf();
 
-    display_string(0, itoaconv(joy_sw));
-    display_update();
+
+    update_object(&player);
+    display_buf();
+    clear_buf();
 
 
 }
