@@ -2,6 +2,7 @@
 #define GRAPHICS_H
 #include <stdint.h>
 #include "sprite.h"
+extern uint8_t buf[4][128];
 
 // sample values for now
 #define SCREEN_WIDTH (128)
