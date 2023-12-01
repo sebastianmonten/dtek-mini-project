@@ -150,7 +150,7 @@ char ch = (char) s;
 // draw only a char right now
 int i;
 for (i = 0; i < 8; i++) {
-  buf[0][i] = ~font[ch * 8 + i]
+  buf[0][i] = ~font[ch * 8 + i];
 }
 
 }
