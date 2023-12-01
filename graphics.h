@@ -41,7 +41,7 @@ void put_line(int x1, int y1, int x2, int y2);
 void put_line_horizontal(int x1, int x2, int y);
 void put_line_vertical(int y1, int y2, int x);
 void put_rectangle(int x1, int y1, int x2, int y2);
-void put_sprite(int x, int y, const Sprite* sprite);
+void draw_to_buf(int x, int y, const Sprite* sprite);
 
 void update_screen();
 

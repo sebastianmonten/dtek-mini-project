@@ -7,6 +7,7 @@
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
+#include "graphics.h"
 
 /* Declare a helper function which is local to this file */
 static void num32asc( char * s, int ); 
@@ -126,6 +127,7 @@ void display_init(void) {
 	spi_send_recv(0xAF);
 }
 
+/*
 void display_string(int line, char *s) {
 	int i;
 	if(line < 0 || line >= 4)
@@ -139,6 +141,24 @@ void display_string(int line, char *s) {
 			s++;
 		} else
 			textbuffer[line][i] = ' ';
+}
+*/
+
+void display_string(int line, char* s) {
+
+/*
+  while (*s) {
+    buf[s][line * 16] = font(*(uint8_t*) s)
+    s++;
+  }
+
+  buf[index][line * 16] = font[*s]
+
+  draw_to_buf()
+*/
+
+buf[0][0] = font[(char) s];
+
 }
 
 
