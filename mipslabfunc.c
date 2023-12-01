@@ -146,18 +146,11 @@ void display_string(int line, char *s) {
 
 void display_string(int line, char* s) {
 
-/*
-  while (*s) {
-    buf[s][line * 16] = font(*(uint8_t*) s)
-    s++;
-  }
-
-  buf[index][line * 16] = font[*s]
-
-  draw_to_buf()
-*/
-
-buf[0][0] = font[(char) s];
+char ch = (char) s;
+// draw only a char right now
+for (int i = 0; i < 8; i++) {
+  buf[0][i] = font[ch * 8 + i]
+}
 
 }
 
