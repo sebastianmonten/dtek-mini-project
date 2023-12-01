@@ -131,14 +131,14 @@ void labwork(void)
     int joy_y_threshold_upper = 770;
     int joy_y_threshold_lower = 750;
     
-    if (joy_x < joy_x_threshold_lower) {
+    if (joy_x < joy_x_threshold_lower && x_global - 3 > 0) {
       x_global -= 3;
-    } else if (joy_x > joy_x_threshold_upper) {
+    } else if (joy_x > joy_x_threshold_upper && x_global+ ball.width + 3 < SCREEN_WIDTH) {
       x_global += 3;
     }
-    if (joy_y < joy_y_threshold_lower) {
+    if (joy_y < joy_y_threshold_lower && y_global - 3 > 0) {
       y_global -= 3;
-    } else if (joy_y > joy_y_threshold_upper) {
+    } else if (joy_y > joy_y_threshold_upper && y_global + ball.height + 3 < SCREEN_HEIGHT) {
       y_global += 3;
     }
 
