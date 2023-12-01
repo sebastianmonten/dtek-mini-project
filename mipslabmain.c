@@ -16,6 +16,7 @@
 #include "mipslabdata.h"
 
 #include "object.h"
+#include "adc.h"
 
 
 
@@ -76,8 +77,9 @@ int main(void) {
 	// display_image2(0,0);
 	
 	labinit(); /* Do any lab-specific initialization */
-	int y = 0;
-	int x = 0;
+    joy_x = adc_at_pin(4); // A1
+    joy_y = adc_at_pin(8); // A2
+    joy_sw = adc_at_pin(10); // A3
 
 	
 	while( 1 )

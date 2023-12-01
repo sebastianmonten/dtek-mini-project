@@ -4,8 +4,8 @@
 
 Object player = {
     .sprite = &ball, // from mipslabdata.h
-    .x = 0,
-    .y = 0,
+    .x = 2,
+    .y = 2,
     .x_speed = 0,
     .y_speed = 0,
     .bonus_data = NULL,
@@ -17,22 +17,20 @@ void player_move_script(Object* pl) {
     // calculate player's x direction: left-none-right
     // and player's y direction: up-none-right
 
-    int joy_x = adc_at_pin(4);
-    int joy_y = adc_at_pin(8);
 
     int x_direction, y_direction;
 
-    if (joy_x < 312)        
+    if (joy_x < 720)        
         x_direction = -1;
-    else if (joy_x > 712)   
+    else if (joy_x > 740)   
         x_direction = 1;
     else
         x_direction = 0;
     
-    if (joy_y < 312)
-        y_direction = 1;
-    else if (joy_y > 712)
+    if (joy_y < 750)
         y_direction = -1;
+    else if (joy_y > 770)
+        y_direction = 1;
     else
         y_direction = 0;
 
