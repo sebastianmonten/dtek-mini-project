@@ -16,12 +16,14 @@
 
 // #include "time4io.h" // include
 #include "adc.h"
+#include "player.h"
 
 // OUR GLOBAL VARIABLES
 int timeoutcount = 0;
 int prime = 1234567;
 int joy_x = 0;
 int joy_y = 0;
+int joy_sw = 0;
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -60,6 +62,7 @@ void user_isr(void)
     // PROBE A1 and A2 for x and y of joystick
     joy_x = adc_at_pin(4); // A1
     joy_y = adc_at_pin(8); // A2
+    joy_sw = adc_at_pin(10); // A3
   }
   
 
@@ -125,6 +128,8 @@ void labwork(void)
   // display_update();
   // display_image(0, icon2); // add doge icon, old was 96
 
+
+
     int joy_x_threshold_upper = 740;
     int joy_x_threshold_lower = 720;
 
@@ -141,12 +146,12 @@ void labwork(void)
     } else if (joy_y > joy_y_threshold_upper && y_global + ball.height + 3 < SCREEN_HEIGHT) {
       y_global += 3;
     }
+    // draw_to_buf(x_global, y_global, ball);
+		// display_buf();
+    // clear_buf();
 
-    draw_to_buf(x_global, y_global, ball);
-		display_buf();
-    clear_buf();
-    // display_string(0, itoaconv(joy_y));
-    // display_update();
+    display_string(0, itoaconv(joy_sw));
+    display_update();
 
 
 }
