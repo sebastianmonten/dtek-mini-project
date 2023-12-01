@@ -62,15 +62,26 @@ void draw_to_buf(int x, int y, Sprite s) {
 	for (sy = 0; sy < s.height; sy++) {
 		for (sx = 0; sx < s.width; sx++) {
 			if (s.data[sy][sx]) {
-				int page = (x + sx - s.x_origin) / 32;
-				if (page > 3 || page < 0) break;
-				if (sy + y - s.y_origin >= 32 || sy + y - s.y_origin < 0) break;
+				// check if the current x-value of the pixel is out of bounds
+				int pixel_x = x + sx - s.x_origin;
+				if (pixel_x < 0)
+					continue;
+				else if (pixel_x > 127)
+					break;
+				
+				// check if the current y-value of the pixel is out of bounds
+				int pixel_y = y + sy - s.y_origin;
+				if (pixel_y < 0)
+					continue;
+				else if (pixel_y > 31)
+					break;
 
-				int local_x = (x + sx - s.x_origin) % 32;
+				int page = pixel_x / 32;
+				int local_x = (pixel_x) % 32;
 
-				int index = ((y + sy - s.y_origin) / 8) * 32 + local_x;
+				int index = ((pixel_y) / 8) * 32 + local_x;
 				// int bitindex = 7 - ((y + sy) % 8);
-				int bitindex = ((y + sy - s.y_origin) % 8);
+				int bitindex = ((pixel_y) % 8);
 
 				buf[page][index] &= ~(1 << bitindex);
 				
