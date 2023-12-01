@@ -148,8 +148,9 @@ void display_string(int line, char* s) {
 
 char ch = (char) s;
 // draw only a char right now
-for (int i = 0; i < 8; i++) {
-  buf[0][i] = font[ch * 8 + i]
+int i;
+for (i = 0; i < 8; i++) {
+  buf[0][i] = font[ch * 8 + i];
 }
 
 }

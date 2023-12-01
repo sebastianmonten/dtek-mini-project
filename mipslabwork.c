@@ -158,7 +158,5 @@ void labwork(void)
 
     display_string(0, 'x');
     display_buf();
-
-
-
+    
 }
