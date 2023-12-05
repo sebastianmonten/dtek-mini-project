@@ -14,6 +14,8 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
+#include <stdio.h> /* test */
+
 // #include "time4io.h" // include
 #include "adc.h"
 #include "player.h"
@@ -108,6 +110,12 @@ void game(void) {
     gamestate = DEATH;
     set_player_alive(1);
   }
+  
+  // display object count
+  char str[16];
+  sprintf(str, "count: %d", object_count);
+
+  display_string(3, str);
 
 }
 
