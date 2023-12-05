@@ -21,10 +21,21 @@
 // OUR GLOBAL VARIABLES
 int timeoutcount = 0;
 int prime = 1234567;
+int time_since_last_sw_press = 0;
+int time_debounce = 2;
+
+bool you_pressed = 0;
+
 // GOBAL VARIABLES FOR GAME STATE
 enum GameState_e {START, HIGHSCORE, GAME, DEATH};
 typedef enum GameState_e GameState;
 GameState gamestate = START;
+
+// GLOBAL VARIABLES FOR START MENU
+enum StartSel_e {PLAY, SHOW_HIGHSCORES};
+typedef enum StartSel_e StartSel;
+StartSel start_sel = PLAY;
+
 // GLOBAL FOR BALL COORD
 int y_global = 0;
 int x_global = 0;
@@ -33,6 +44,24 @@ int x_global = 0;
 int mytime = 0x5957;
 
 char textstring[] = "text, more text, and even more text!";
+
+
+
+
+void start(void) {
+  switch (start_sel)
+  {
+  case PLAY:
+    display_string(1, " PRESS TO PLAY");
+    break;
+  
+  default:
+    break;
+  }
+}
+
+
+
 
 /* Interrupt Service Routine */
 void user_isr(void)
@@ -64,7 +93,20 @@ void user_isr(void)
     // PROBE A1 and A2 for x and y of joystick
     joy_x = adc_at_pin(4); // A1
     joy_y = adc_at_pin(8); // A2
+
+    
     joy_sw = adc_at_pin(10); // A3
+    if (joy_sw) {time_since_last_sw_press++;} // increment time since last press if not currently pressed
+    if (joy_sw == 0 & time_since_last_sw_press > time_debounce) {
+      sw_pressed = 1;
+      time_since_last_sw_press = 0;
+
+      // if (sw_pressed) {
+      //   you_pressed = ! you_pressed;
+      //   sw_pressed = 0;
+      // }
+    }
+
   }
   
 
@@ -80,6 +122,7 @@ void user_isr(void)
     // display_update();
     // display_update();
     // display_image(96, icon); // add doge icon 
+
     ////////////////////////////////////////////
     timeoutcount = 0;
   }
@@ -160,11 +203,39 @@ void labwork(void)
 
     // display_string(0, "START/HIGHSCORES");
     // display_string(1, "START/HIGHSCORES");
-    display_string(2, "START/HIGHSCORES");
-    display_string(3, "START/HIGHSCORES");
-    // display_string(3, "START/HIGHSCORES");
-    update_object(&player);
+    
+    // // display_string(3, "START/HIGHSCORES");
+    // update_object(&player);
+
+
+    // display_string(0, "gamestate:");
+    // display_string(1, itoaconv(gamestate));
+
+    switch (gamestate)
+    {
+    case START:
+      // display_string(0, "In start menu");
+      start();
+      break;
+    
+    case HIGHSCORE:
+      /* code */
+      break;
+
+    case GAME:
+      /* code */
+      break;
+
+    case DEATH:
+      /* code */
+      break;
+    
+    default:
+      break;
+    }
     display_buf();
     clear_buf();
 
 }
+
+

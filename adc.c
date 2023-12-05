@@ -1,11 +1,14 @@
 #include <pic32mx.h>
+#include <stdbool.h>
 
 // void delay(int cyc) {
 // 	volatile int i;
 // 	for(i = cyc; i > 0; i--);
 // }
 
-
+// GLOBAL VARIABLES FOR JOYSTICK
+bool sw_pressed = 0;
+////
 
 
 int adc_at_pin(int pin_num) {
