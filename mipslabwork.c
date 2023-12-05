@@ -75,7 +75,12 @@ int mytime = 0x5957;
 char textstring[] = "text, more text, and even more text!";
 
 
-
+void reset_cursors(void) {
+  cursor_x = 0;
+  cursor_y = 0;
+  death_sel = DEATH_SEL_START;
+  start_sel = PLAY;
+}
 
 void start(void) {
 
@@ -95,6 +100,7 @@ void start(void) {
     if (sw_pressed) {
       gamestate = GAME;
       sw_pressed = 0;
+      reset_cursors();
     }
     break;
 
@@ -104,6 +110,7 @@ void start(void) {
     if (sw_pressed) {
       gamestate = HIGHSCORE;
       sw_pressed = 0;
+      reset_cursors();
     }
     break;
   
@@ -127,6 +134,7 @@ void game(void) {
   // check if player is alive
   if (! get_player_alive()) {
     gamestate = DEATH;
+    reset_cursors();
     set_player_alive(1);
   }
   
@@ -137,8 +145,53 @@ void game(void) {
 
 }
 
+char* concatenateEntryToString(int index) {
+    static char result[17];  // Make sure the buffer is large enough
+    int offset = 0;
+
+    // Copy the name to result
+    int i;
+    for (i = 0; i < 3 && scores[index].name[i] != '\0'; ++i) {
+        result[offset++] = scores[index].name[i];
+    }
+
+    // Add the colon and space
+    result[offset++] = ':';
+    result[offset++] = ' ';
+
+    // Convert the score to a string and copy it to result
+    int score = scores[index].score;
+    int score_digits = 0;
+
+    // Count the number of digits in the score
+    do {
+        ++score_digits;
+        score /= 10;
+    } while (score != 0);
+
+    // Convert the score to a string and copy it to result
+    score = scores[index].score;
+    for (i = 0; i < score_digits; ++i) {
+        result[offset + score_digits - i - 1] = '0' + score % 10;
+        score /= 10;
+    }
+
+    // Null-terminate the string
+    result[offset + score_digits] = '\0';
+
+    return result;
+}
+
 void highscores(void) {
-  display_string(1, "   HIGHSCORES!");
+  if (sw_pressed) {
+    gamestate = START;
+    sw_pressed = 0;
+    reset_cursors();
+  }
+  display_string(0, "          > BACK");
+  display_string(1, concatenateEntryToString(0));
+  display_string(2, concatenateEntryToString(1));
+  display_string(3, concatenateEntryToString(2));
 }
 
 
@@ -158,7 +211,7 @@ void death(void) {
   switch (death_sel)
   {
   case DEATH_SEL_START:
-    display_string(2, "> START");
+    display_string(2, "> START MENU");
     display_string(3, "  SAVE SCORE");
     if (sw_pressed) {
       gamestate = START;
@@ -167,7 +220,7 @@ void death(void) {
     break;
 
   case DEATH_SEL_ENTER_HIGHSCORE:
-    display_string(2, "  START");
+    display_string(2, "  START MENU");
     display_string(3, "> SAVE SCORE");
     if (sw_pressed) {
       gamestate = ENTER_HIGHSCORE;
@@ -216,6 +269,11 @@ void enter_highscore(void) {
     new_name[new_name_index] = selected_char;
     new_name_index++;
     sw_pressed = 0;
+
+    if (new_name_index == 3) {
+      gamestate = START;
+      reset_cursors();
+    }
   }
 
   display_string(0, new_name);
