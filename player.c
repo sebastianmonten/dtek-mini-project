@@ -42,10 +42,10 @@ void player_move_script(Object* pl) {
         y_direction = 0;
 
     // pythagoras: if the player is moving in a y direction, their x speed must be lower
-    pl->x_speed = y_direction ? 3 * x_direction : 2 * x_direction;
+    pl->x_speed = 3 * x_direction;
 
     // same for y
-    pl->y_speed = x_direction ? 3 * y_direction : 2 * y_direction;
+    pl->y_speed = y_direction;
 }
 
 

@@ -27,6 +27,7 @@ int prime = 1234567;
 int time_since_last_sw_press = 0;
 int time_debounce = 2;
 int total_time_elapsed = 0; // x 10 milliseconds?
+int game_time = 0;
 
 bool you_pressed = 0;
 
@@ -57,6 +58,7 @@ char new_name[3] = "   ";
 int new_name_index = 0;
 
 // GLOBAL VARIABLES FOR HIGHSCORE VIEW
+#define MAX_ENTRIES 3
 struct Entry {
     char name[4];  // 3 characters + null terminator
     int score;
@@ -82,6 +84,12 @@ void reset_cursors(void) {
   cursor_y = 0;
   death_sel = DEATH_SEL_START;
   start_sel = PLAY;
+  new_name_index = 0;
+
+  int i;
+  for (i = 0; i < 3; i++) {
+    new_name[i] = ' ';
+  }
 }
 
 void start(void) {
@@ -105,6 +113,7 @@ void start(void) {
       gamestate = GAME;
       sw_pressed = 0;
       reset_cursors();
+      game_time = 0; // reset game time counter
     }
     break;
 
@@ -145,7 +154,7 @@ void game(void) {
   // display object count
   // char str[16];
 
-  display_string(3, itoaconv(object_count));
+  display_string(3, itoaconv(game_time));
 
 }
 
@@ -184,6 +193,23 @@ char* concatenateEntryToString(int index) {
     result[offset + score_digits] = '\0';
 
     return result;
+}
+
+void enter_entry(struct Entry scores[], const struct Entry *newEntry) {
+    // Find the index of the first entry with a lower score
+    int insertIndex = 0;
+    while (insertIndex < MAX_ENTRIES && newEntry->score <= scores[insertIndex].score) {
+        insertIndex++;
+    }
+
+    // Shift scores down to make space for the new entry
+    int i;
+    for (i = MAX_ENTRIES - 1; i > insertIndex; --i) {
+        scores[i] = scores[i - 1];
+    }
+
+    // Insert the new entry at the correct place
+    scores[insertIndex] = *newEntry;
 }
 
 void highscores(void) {
@@ -275,6 +301,13 @@ void enter_highscore(void) {
     sw_pressed = 0;
 
     if (new_name_index == 3) {
+      struct Entry new_entry;
+      int i;
+      for (i = 0; i < 3; i++) {
+        new_entry.name[i] = new_name[i];
+      }
+      new_entry.score = game_time;
+      enter_entry(scores, &new_entry);
       gamestate = START;
       reset_cursors();
     }
@@ -330,6 +363,8 @@ void user_isr(void)
     cursor_blink_time++;
 
     total_time_elapsed++;
+
+    if (gamestate == GAME) {game_time++;}
 
 
   }
