@@ -118,3 +118,24 @@ void add_line_obstacle_horizontal() {
     if (line)
         line->y_speed = -3;
 }
+
+void portal_ai(Object* portal) {
+    update_object_general(portal);
+
+    // draw the portal: a rectangle of width 5 at (x, y - 10) and at (x, y + 10)
+    // the rectangles go slightly out of bounds
+
+    if (portal->x > X_MAX + 40 || portal->x < X_MIN - 40) {
+        delete_object(portal);
+        return;
+    }
+
+    put_rectangle(portal->x - 2, portal->y - 10, portal->x + 2, -2);
+    put_rectangle(portal->x - 2, portal->y + 10, portal->x + 2, SCREEN_HEIGHT + 2);
+}
+
+void add_portal() {
+    Object* portal = add_object(140, 50, NULL, portal_ai, NULL, 0);
+    if (portal)
+        portal->x_speed = -3;
+}

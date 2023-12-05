@@ -135,3 +135,11 @@ void draw_to_buf_test(void) {
 void put_circle(int x, int y, int rad) {
     // will add bresenham algo later..
 }
+
+void put_rectangle(int x1, int y1, int x2, int y2) {
+	put_line_horizontal(x1, x2, y1);
+	put_line_horizontal(x1, x2, y2);
+
+	put_line_vertical(y1, y2, x1);
+	put_line_vertical(y1, y2, x2);
+}
