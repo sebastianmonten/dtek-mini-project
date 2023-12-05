@@ -40,9 +40,10 @@ StartSel start_sel = PLAY;  // initial game state
 enum DeathSel_e {DEATH_SEL_START, DEATH_SEL_ENTER_HIGHSCORE};
 typedef enum DeathSel_e DeathSel;
 DeathSel death_sel = DEATH_SEL_START;  // initial game state
-int char_x = 0;
-int char_y = 0;
-int char_blink_time = 10;
+int cursor_x = 0;
+int cursor_y = 0;
+int cursor_blink_time = 0;
+int cursor_blink_max = 10;
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -142,7 +143,7 @@ void death(void) {
 }
 
 void enter_highscore(void) {
-  int i_max = 12;
+  int cursor_x_max = 12;
 
   display_string(2, " ABCDEFGHIJKLM");
   display_string(3, " NOPQRSTUVWXYZ");
@@ -186,6 +187,14 @@ void user_isr(void)
     if (joy_sw == 0 & time_since_last_sw_press > time_debounce) {
       sw_pressed = 1;
       time_since_last_sw_press = 0;
+    }
+
+    // CHECK IF PLAYER IS ALIVE
+    if (gamestate == GAME) {
+      if (! * (bool*) player.bonus_data) {
+        gamestate = DEATH;
+        * (bool*) player.bonus_data = 0;
+      }
     }
 
 
