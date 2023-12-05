@@ -27,14 +27,22 @@ int time_debounce = 2;
 bool you_pressed = 0;
 
 // GOBAL VARIABLES FOR GAME STATE
-enum GameState_e {START, HIGHSCORE, GAME, DEATH};
+enum GameState_e {START, HIGHSCORE, GAME, DEATH, ENTER_HIGHSCORE};
 typedef enum GameState_e GameState;
-GameState gamestate = START;
+GameState gamestate = DEATH;
 
 // GLOBAL VARIABLES FOR START MENU
 enum StartSel_e {PLAY, SHOW_HIGHSCORES};
 typedef enum StartSel_e StartSel;
 StartSel start_sel = PLAY;  // initial game state
+
+// GLOBAL VARIABLES FOR DEATH MENU
+enum DeathSel_e {DEATH_SEL_START, DEATH_SEL_ENTER_HIGHSCORE};
+typedef enum DeathSel_e DeathSel;
+DeathSel death_sel = DEATH_SEL_START;  // initial game state
+int char_x = 0;
+int char_y = 0;
+int char_blink_time = 10;
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -100,7 +108,45 @@ void highscores(void) {
 }
 
 
+void death(void) {
+  if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && death_sel == DEATH_SEL_START) {
+    death_sel = DEATH_SEL_ENTER_HIGHSCORE;
+  } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && death_sel == DEATH_SEL_ENTER_HIGHSCORE) {
+    death_sel = DEATH_SEL_START;
+  }
+  display_string(0, "   GAME OVER!");
+  switch (death_sel)
+  {
+  case DEATH_SEL_START:
+    display_string(2, "> START");
+    display_string(3, "  SAVE SCORE");
+    if (sw_pressed) {
+      gamestate = START;
+      sw_pressed = 0;
+    }
+    break;
 
+  case DEATH_SEL_ENTER_HIGHSCORE:
+    display_string(2, "  START");
+    display_string(3, "> SAVE SCORE");
+    if (sw_pressed) {
+      gamestate = ENTER_HIGHSCORE;
+      sw_pressed = 0;
+    }
+    break;
+  
+  default:
+    break;
+  }
+
+}
+
+void enter_highscore(void) {
+  int i_max = 12;
+
+  display_string(2, " ABCDEFGHIJKLM");
+  display_string(3, " NOPQRSTUVWXYZ");
+}
 
 
 /* Interrupt Service Routine */
@@ -263,7 +309,11 @@ void labwork(void)
       break;
 
     case DEATH:
-      /* code */
+      death();
+      break;
+
+    case ENTER_HIGHSCORE:
+      enter_highscore();
       break;
     
     default:
