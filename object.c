@@ -54,7 +54,7 @@ Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), v
             objects[i].active = true;
             return &objects[i];
         }
-    return NULL;
+    return (Object*) NULL;
 }
 
 // returns NULL if there are already too many objects
@@ -76,7 +76,7 @@ Object* add_blank_object() {
             return &objects[i];
         }
 
-    return NULL;
+    return (Object*) NULL;
 }
 
 void delete_object(Object* o) {
