@@ -135,7 +135,7 @@ void portal_ai(Object* portal) {
 }
 
 void add_portal() {
-    Object* portal = add_object(140, 50, NULL, portal_ai, NULL, 0);
+    Object* portal = add_object(140, 16, NULL, portal_ai, NULL, 0);
     if (portal)
         portal->x_speed = -3;
 }
