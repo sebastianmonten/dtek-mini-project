@@ -283,7 +283,7 @@ void user_isr(void)
 
     ////////////////////////////////////////////
     timeoutcount = 0;
-    if (gamestate == GAME) {add_line_obstacle();}
+    if (gamestate == GAME) {add_portal();}
   }
 
   else if (timeoutcount == 5 && gamestate == GAME)

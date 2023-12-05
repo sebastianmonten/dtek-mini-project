@@ -104,6 +104,17 @@ bool player_check_collision_obj(Object* pl, Object* obj) {
                 return true;
     }
 
+    // ok, check if obj is a portal
+    else if (obj->update_func == portal_ai)
+    {
+        // check x collision
+        if (right < obj->x - 5 || left > obj->x + 5)
+            return false;
+
+        if (top <= obj->y - 10 || bot >= obj->y + 10)
+            return true;
+    }
+
         
 
     return false;
