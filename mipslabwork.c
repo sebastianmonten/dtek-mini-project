@@ -34,7 +34,7 @@ GameState gamestate = START;
 // GLOBAL VARIABLES FOR START MENU
 enum StartSel_e {PLAY, SHOW_HIGHSCORES};
 typedef enum StartSel_e StartSel;
-StartSel start_sel = PLAY;
+StartSel start_sel = PLAY;  // initial game state
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -81,13 +81,24 @@ void start(void) {
   }
 }
 
+
+
 void game(void) {
-  display_string(1, "   GAME ON!");
+  // update all objects
+  int i;
+  for (i = 0; i < MAX_OBJECTS; i++)
+    if (objects[i].active)
+      update_object(&objects[i]);
+  // display_string(0, "   GAME ON!");
+
+  update_object(&player);
+
 }
 
 void highscores(void) {
   display_string(1, "   HIGHSCORES!");
 }
+
 
 
 
@@ -129,23 +140,14 @@ void user_isr(void)
     if (joy_sw == 0 & time_since_last_sw_press > time_debounce) {
       sw_pressed = 1;
       time_since_last_sw_press = 0;
-
-      // if (sw_pressed) {
-      //   you_pressed = ! you_pressed;
-      //   sw_pressed = 0;
-      // }
     }
 
-    // update all objects
-    int i;
-    for (i = 0; i < MAX_OBJECTS; i++)
-      if (objects[i].active)
-        update_object(&objects[i]);
+
 
   }
   
 
-  if (timeoutcount == 100) {
+  if (timeoutcount == 10) {
     if (!triple) {
       tick(&mytime);
     }
@@ -160,7 +162,7 @@ void user_isr(void)
 
     ////////////////////////////////////////////
     timeoutcount = 0;
-    add_line_obstacle();
+    if (gamestate == GAME) {add_line_obstacle();}
   }
 }
 
@@ -244,9 +246,7 @@ void labwork(void)
     // update_object(&player);
 
 
-    // display_string(0, "gamestate:");
-    // display_string(1, itoaconv(gamestate));
-
+    // MAIN SWITCH CASE FOR GAME STATE
     switch (gamestate)
     {
     case START:
@@ -269,8 +269,11 @@ void labwork(void)
     default:
       break;
     }
+    // 
+
     display_buf();
     clear_buf();
+
 
 }
 
