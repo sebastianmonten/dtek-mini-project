@@ -61,16 +61,32 @@ void start(void) {
   case PLAY:
     display_string(1, "> PLAY");
     display_string(2, "  HIGHSCORES");
+    if (sw_pressed) {
+      gamestate = GAME;
+      sw_pressed = 0;
+    }
     break;
 
   case SHOW_HIGHSCORES:
     display_string(1, "  PLAY");
     display_string(2, "> HIGHSCORES");
+    if (sw_pressed) {
+      gamestate = HIGHSCORE;
+      sw_pressed = 0;
+    }
     break;
   
   default:
     break;
   }
+}
+
+void game(void) {
+  display_string(1, "   GAME ON!");
+}
+
+void highscores(void) {
+  display_string(1, "   HIGHSCORES!");
 }
 
 
@@ -232,11 +248,11 @@ void labwork(void)
       break;
     
     case HIGHSCORE:
-      /* code */
+      highscores();
       break;
 
     case GAME:
-      /* code */
+      game();
       break;
 
     case DEATH:
