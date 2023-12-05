@@ -115,6 +115,12 @@ void death(void) {
   } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && death_sel == DEATH_SEL_ENTER_HIGHSCORE) {
     death_sel = DEATH_SEL_START;
   }
+
+  // remove all objects
+  int i;
+  for (i = 0; i < MAX_OBJECTS; i++)
+    objects[i].active = false;
+
   display_string(0, "   GAME OVER!");
   switch (death_sel)
   {
