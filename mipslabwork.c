@@ -260,6 +260,10 @@ void user_isr(void)
     timeoutcount = 0;
     if (gamestate == GAME) {add_line_obstacle();}
   }
+
+  else if (timeoutcount == 5 && gamestate == GAME)
+    add_line_obstacle_horizontal();
+
 }
 
 /* Lab-specific initialization goes here */
