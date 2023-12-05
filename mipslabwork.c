@@ -136,15 +136,21 @@ void user_isr(void)
       // }
     }
 
+    // update all objects
+    int i;
+    for (i = 0; i < MAX_OBJECTS; i++)
+      if (objects[i].active)
+        update_object(&objects[i]);
+
   }
   
 
-  if (timeoutcount == 10) {
+  if (timeoutcount == 100) {
     if (!triple) {
       tick(&mytime);
     }
 
-    // THIS BLOCK HAPPWNS EVERY 100ms
+    // THIS BLOCK HAPPWNS EVERY 1000ms
     // time2string(textstring, mytime);
     // display_string(0, "joy x = ");
     // display_string(1, itoaconv(joy_x));
@@ -154,6 +160,7 @@ void user_isr(void)
 
     ////////////////////////////////////////////
     timeoutcount = 0;
+    add_line_obstacle();
   }
 }
 

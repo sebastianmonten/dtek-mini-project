@@ -39,5 +39,7 @@ void update_object_general(Object* o);
 Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), void* bonus_data, int bonus_data_size);
 Object* add_blank_object();
 void delete_object(Object* o);
+void add_line_obstacle();
+void line_obstacle_ai(Object* line);
 
 #endif
