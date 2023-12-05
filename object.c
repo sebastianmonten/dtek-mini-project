@@ -131,14 +131,13 @@ void portal_ai(Object* portal) {
         return;
     }
 
-    int offset = rand_range(-2, 2);
-
-    put_rectangle(portal->x - 2, portal->y - 11 + offset, portal->x + 2, -2);
-    put_rectangle(portal->x - 2, portal->y + 11 + offset, portal->x + 2, SCREEN_HEIGHT + 2);
+    put_rectangle(portal->x - 2, portal->y - 11, portal->x + 2, -2);
+    put_rectangle(portal->x - 2, portal->y + 11, portal->x + 2, SCREEN_HEIGHT + 2);
 }
 
 void add_portal() {
-    Object* portal = add_object(140, 16, NULL, portal_ai, NULL, 0);
+    int offset = rand_range(-2, 2);
+    Object* portal = add_object(140, 16 + offset, NULL, portal_ai, NULL, 0);
     if (portal)
         portal->x_speed = -3;
 }
