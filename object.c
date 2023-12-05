@@ -105,12 +105,12 @@ void add_line_obstacle() {
 void line_obstacle_horizontal_ai(Object* line) {
     update_object_general(line);
 
-    if (line->y > Y_MAX + 40 || line->x < Y_MIN - 40) {
+    if (line->y > Y_MAX + 40 || line->y < Y_MIN - 40) {
         delete_object(line);
         return;
     }
 
-    put_line_horizontal(line->x - 3, line->y + 3, line->y);
+    put_line_horizontal(line->x - 3, line->x + 3, line->y);
 }
 
 void add_line_obstacle_horizontal() {

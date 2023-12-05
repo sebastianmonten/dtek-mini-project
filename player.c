@@ -100,7 +100,7 @@ bool player_check_collision_obj(Object* pl, Object* obj) {
     {
         if (top <= obj->y && obj->y <= bot)
         // these are hardcoded values; change later
-            if (left <= obj->x + 3 && obj->y - 3 <= right)
+            if (left <= obj->x + 3 && obj->x - 3 <= right)
                 return true;
     }
 

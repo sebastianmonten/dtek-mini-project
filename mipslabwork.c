@@ -49,8 +49,12 @@ int cursor_y = 0;
 int cursor_blink_time = 0;
 int cursor_blink_max = 2;
 int cursor_on = 0;
+int time_since_last_cursor_move = 0;
+int time_cursor_debounce = 6;
 char new_name[3] = "   ";
 int new_name_index = 0;
+
+// GLOBAL VARIABLES FOR HIGHSCORE VIEW
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -65,6 +69,8 @@ char textstring[] = "text, more text, and even more text!";
 
 
 void start(void) {
+
+  object_count = 0; // reset
 
   if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && start_sel == PLAY) {
     start_sel = SHOW_HIGHSCORES;
@@ -171,17 +177,25 @@ void enter_highscore(void) {
   int cursor_y_max = 1;
   char Strings[2][15] = {" ABCDEFGHIJKLM", " NOPQRSTUVWXYZ"};
 
+  if (time_since_last_cursor_move > time_cursor_debounce) {
+    if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && cursor_y < cursor_y_max) {
+      cursor_y++;
+      time_since_last_cursor_move = 0;
+    } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && cursor_y > 0) {
+      cursor_y--;
+      time_since_last_cursor_move = 0;
+    }
+    if (joy_x > JOY_X_NEUTRAL+JOY_XY_DEVIATION && cursor_x < cursor_x_max) {
+      cursor_x++;
+      time_since_last_cursor_move = 0;
+    } else if (joy_x < JOY_X_NEUTRAL-JOY_XY_DEVIATION && cursor_x > 0) {
+      cursor_x--;
+      time_since_last_cursor_move = 0;
+    }
+  }
 
-  if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && cursor_y < cursor_y_max) {
-    cursor_y++;
-  } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && cursor_y > 0) {
-    cursor_y--;
-  }
-  if (joy_x > JOY_X_NEUTRAL+JOY_XY_DEVIATION && cursor_x < cursor_x_max) {
-    cursor_x++;
-  } else if (joy_x < JOY_X_NEUTRAL-JOY_XY_DEVIATION && cursor_x > 0) {
-    cursor_x--;
-  }
+  time_since_last_cursor_move ++;
+
 
   char selected_char = Strings[cursor_y][cursor_x + 1];
   if (cursor_on) {
