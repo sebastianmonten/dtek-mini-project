@@ -1,6 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 #include "graphics.h"
+#include <stdbool.h>
 enum DrawModes {
     DRAW_MODE_NONE,
     DRAW_MODE_NORMAL,
@@ -15,21 +16,28 @@ struct Object_s {
     int y;
     int x_speed;
     int y_speed;
-    struct Object_s* bonus_data;
+    void* bonus_data;
     int bonus_data_size;
 
     // update_func is a void function that takes an Object* as its only parameter.
     // i assume most Objects will share a common Update function.
-    void (*update_func)(struct Object_s*); 
+    void (*update_func)(struct Object_s*);
+    bool active;
+
 };
 
 typedef struct Object_s Object;
 
-// extern Object objects[100];
+#define MAX_OBJECTS 100
+Object objects[MAX_OBJECTS];
+int object_count;
 
 void update_object(Object* o);
 void draw_object(Object* o);
 void bounce_ball_ai(Object* ball);
 void update_object_general(Object* o);
+Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), void* bonus_data, int bonus_data_size);
+Object* add_blank_object();
+void delete_object(Object* o);
 
 #endif
