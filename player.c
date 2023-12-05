@@ -2,6 +2,8 @@
 #include "mipslabdata.h"
 #define NULL ((void*)0)
 
+bool player_alive = true;
+
 Object player = {
     .sprite = &ball, // from mipslabdata.h
     .x = 2,
@@ -14,7 +16,7 @@ Object player = {
     .active = true
 };
 
-bool player_alive = true;
+
 
 void player_move_script(Object* pl) {
     // calculate player's x direction: left-none-right
