@@ -1,4 +1,5 @@
 #include "object.h"
+#include "rand.h"
 int object_count = 0;
 
 #define NULL ((void*)0)
@@ -130,8 +131,10 @@ void portal_ai(Object* portal) {
         return;
     }
 
-    put_rectangle(portal->x - 2, portal->y - 10, portal->x + 2, -2);
-    put_rectangle(portal->x - 2, portal->y + 10, portal->x + 2, SCREEN_HEIGHT + 2);
+    int offset = random_range(-2, 2);
+
+    put_rectangle(portal->x - 2, portal->y - 11 + offset, portal->x + 2, -2);
+    put_rectangle(portal->x - 2, portal->y + 11 + offset, portal->x + 2, SCREEN_HEIGHT + 2);
 }
 
 void add_portal() {

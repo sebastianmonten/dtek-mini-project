@@ -19,12 +19,14 @@
 // #include "time4io.h" // include
 #include "adc.h"
 #include "player.h"
+#include "rand.h"
 
 // OUR GLOBAL VARIABLES
 int timeoutcount = 0;
 int prime = 1234567;
 int time_since_last_sw_press = 0;
 int time_debounce = 2;
+int total_time_elapsed = 0; // x 10 milliseconds?
 
 bool you_pressed = 0;
 
@@ -85,6 +87,8 @@ void reset_cursors(void) {
 void start(void) {
 
   object_count = 0; // reset
+  random_seed = total_time_elapsed;
+
 
   if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && start_sel == PLAY) {
     start_sel = SHOW_HIGHSCORES;
@@ -325,6 +329,7 @@ void user_isr(void)
 
     cursor_blink_time++;
 
+    total_time_elapsed++;
 
 
   }
