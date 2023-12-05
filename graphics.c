@@ -50,7 +50,7 @@ void put_line_vertical(int y1, int y2, int x) {
 	if (x < X_MIN || x > X_MAX)
 		return;
 
-	while (y1 <= y2 && y1 < SCREEN_WIDTH) {
+	while (y1 <= y2 && y1 < SCREEN_HEIGHT) {
 		set_pixel_unchecked(x, y1);
 		y1++;
 	}

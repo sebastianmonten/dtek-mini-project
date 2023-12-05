@@ -301,4 +301,5 @@ Object test_ball = {
     .bonus_data = (void *) 0,
     .bonus_data_size = 0,
     .update_func = bounce_ball_ai
+	.active = true
 };
