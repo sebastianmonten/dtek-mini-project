@@ -148,13 +148,14 @@ void display_string(int line, char* s) {
 
   int x = 0, local_x = 0;
   int page = 0;
+  int y = line * 32;
 
   while (*s) {
 
     // putchar
     int j = 0;
     for (j = 0; j < 8; j++) {
-      buf[page][j + local_x] = ~font[(*s) * 8 + j];
+      buf[page][y + j + local_x] = ~font[(*s) * 8 + j];
     }
 
     x += 8;

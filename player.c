@@ -20,16 +20,16 @@ void player_move_script(Object* pl) {
 
     int x_direction, y_direction;
 
-    if (joy_x < 720)        
+    if (joy_x < JOY_X_NEUTRAL-JOY_XY_DEVIATION)        
         x_direction = -1;
-    else if (joy_x > 740)   
+    else if (joy_x > JOY_X_NEUTRAL+JOY_XY_DEVIATION)   
         x_direction = 1;
     else
         x_direction = 0;
     
-    if (joy_y < 750)
+    if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION)
         y_direction = -1;
-    else if (joy_y > 770)
+    else if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION)
         y_direction = 1;
     else
         y_direction = 0;

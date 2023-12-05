@@ -10,6 +10,9 @@
 #include "object.h"
 #include "mipslabdata.h" // test by me now
 
+
+
+
 char textbuffer[4][16];
 
 const uint8_t const font[] = {

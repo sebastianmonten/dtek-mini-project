@@ -21,10 +21,10 @@
 // OUR GLOBAL VARIABLES
 int timeoutcount = 0;
 int prime = 1234567;
-// int joy_x = 0;
-// int joy_y = 0;
-// int joy_sw = 0;
-
+// GOBAL VARIABLES FOR GAME STATE
+enum GameState_e {START, HIGHSCORE, GAME, DEATH};
+typedef enum GameState_e GameState;
+GameState gamestate = START;
 // GLOBAL FOR BALL COORD
 int y_global = 0;
 int x_global = 0;
@@ -52,6 +52,8 @@ void user_isr(void)
     // display_string(3, textstring);
     // display_update();
     // display_image(96, icon); // add doge icon 
+
+
   }
 
   if (((IFS(0) >> 8)) & 1) {
@@ -156,7 +158,11 @@ void labwork(void)
     // display_buf();
     // clear_buf();
 
-    display_string(0, "hej");
+    // display_string(0, "START/HIGHSCORES");
+    // display_string(1, "START/HIGHSCORES");
+    display_string(2, "START/HIGHSCORES");
+    display_string(3, "START/HIGHSCORES");
+    // display_string(3, "START/HIGHSCORES");
     update_object(&player);
     display_buf();
     clear_buf();
