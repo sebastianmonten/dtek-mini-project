@@ -14,9 +14,9 @@ void bounce_ball_ai(Object* ball) {
     //     ball->x_speed = -4;
 }
 
-void draw_object(void* p) {
-    Object* o = (Object*) p;
-    draw_to_buf(o->x, o->y, *(o->sprite));
+void draw_object(Object* o) {
+    if (o->sprite)
+        draw_to_buf(o->x, o->y, *(o->sprite));
 }
 
 void update_object(Object* o) {

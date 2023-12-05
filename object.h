@@ -9,24 +9,26 @@ enum DrawModes {
     DRAW_MODE_CIRCLE
 };
 
-typedef struct {
+struct Object_s {
     Sprite* sprite;
     int x;
     int y;
     int x_speed;
     int y_speed;
-    void* bonus_data;
+    struct Object_s* bonus_data;
     int bonus_data_size;
 
     // update_func is a void function that takes an Object* as its only parameter.
     // i assume most Objects will share a common Update function.
-    void (*update_func)(void*); 
-} Object;
+    void (*update_func)(struct Object_s*); 
+};
+
+typedef struct Object_s Object;
 
 // extern Object objects[100];
 
 void update_object(Object* o);
-void draw_object(void* o);
+void draw_object(Object* o);
 void bounce_ball_ai(Object* ball);
 void update_object_general(Object* o);
 
