@@ -31,3 +31,4 @@ void update_object_general(Object* o) {
     o->y += o->y_speed;
     draw_object(o);
 }
+
