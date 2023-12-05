@@ -55,6 +55,15 @@ char new_name[3] = "   ";
 int new_name_index = 0;
 
 // GLOBAL VARIABLES FOR HIGHSCORE VIEW
+struct Entry {
+    char name[4];  // 3 characters + null terminator
+    int score;
+};
+struct Entry scores[3] = {
+    {"---", 0},
+    {"---", 0},
+    {"---", 0}
+};
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -171,6 +180,8 @@ void death(void) {
   }
 
 }
+
+
 
 void enter_highscore(void) {
   int cursor_x_max = 12;
