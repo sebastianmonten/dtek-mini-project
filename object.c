@@ -87,16 +87,16 @@ void delete_object(Object* o) {
 void line_obstacle_ai(Object* line) {
     update_object_general(line);
 
-    if (line->x > X_MAX || line->x < X_MIN) {
+    if (line->x > X_MAX + 40 || line->x < X_MIN - 40) {
         delete_object(line);
         return;
     }
 
-    put_line_vertical(line->y, line->y + 10, line->x);
+    put_line_vertical(line->y - 5, line->y + 5, line->x);
 }
 
 void add_line_obstacle() {
-    Object* line = add_object(127, 10, NULL, line_obstacle_ai, NULL, 0); 
+    Object* line = add_object(127, 16, NULL, line_obstacle_ai, NULL, 0); 
     if (line)
         line->x_speed = -3;
 
