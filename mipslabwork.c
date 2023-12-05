@@ -144,6 +144,12 @@ void death(void) {
 
 void enter_highscore(void) {
   int cursor_x_max = 12;
+  int cursor_y_max = 1;
+  // if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && cursor_y <= cursor_y_max) {
+  //   death_sel = DEATH_SEL_ENTER_HIGHSCORE;
+  // } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && death_sel == DEATH_SEL_ENTER_HIGHSCORE) {
+  //   death_sel = DEATH_SEL_START;
+  // }
 
   display_string(2, " ABCDEFGHIJKLM");
   display_string(3, " NOPQRSTUVWXYZ");
@@ -191,9 +197,9 @@ void user_isr(void)
 
     // CHECK IF PLAYER IS ALIVE
     if (gamestate == GAME) {
-      if (! * (bool*) player.bonus_data) {
+      if (! get_player_alive()) {
         gamestate = DEATH;
-        * (bool*) player.bonus_data = 0;
+        set_player_alive(1);
       }
     }
 
