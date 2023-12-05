@@ -43,8 +43,8 @@ DeathSel death_sel = DEATH_SEL_START;  // initial game state
 int cursor_x = 0;
 int cursor_y = 0;
 int cursor_blink_time = 0;
-int cursor_blink_max = 10;
-int cursor_on = 1;
+int cursor_blink_max = 2;
+int cursor_on = 0;
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -102,6 +102,12 @@ void game(void) {
   // display_string(0, "   GAME ON!");
 
   update_object(&player);
+
+  // check if player is alive
+  if (! get_player_alive()) {
+    gamestate = DEATH;
+    set_player_alive(1);
+  }
 
 }
 
@@ -214,23 +220,25 @@ void user_isr(void)
       time_since_last_sw_press = 0;
     }
 
-    // CHECK IF PLAYER IS ALIVE
-    if (gamestate == GAME) {
-      if (! get_player_alive()) {
-        gamestate = DEATH;
-        set_player_alive(1);
-      }
-    }
+
+    cursor_blink_time++;
 
 
 
   }
-  
+
+  if (cursor_blink_time >= cursor_blink_max) {
+    cursor_blink_time = 0;
+    cursor_on = ! cursor_on;
+  }
+   
 
   if (timeoutcount == 10) {
     if (!triple) {
       tick(&mytime);
     }
+
+
 
     // THIS BLOCK HAPPWNS EVERY 1000ms
     // time2string(textstring, mytime);
