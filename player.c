@@ -96,6 +96,14 @@ bool player_check_collision_obj(Object* pl, Object* obj) {
                 return true;
     }
 
+    else if (obj->update_func == line_obstacle_horizontal_ai)
+    {
+        if (top <= obj->y && obj->y <= bot)
+        // these are hardcoded values; change later
+            if (left <= obj->x + 3 && obj->y - 3 <= right)
+                return true;
+    }
+
         
 
     return false;
@@ -106,7 +114,7 @@ void player_ai(Object* pl) {
     // handle movement input
     player_move_script(pl);
 
-    // check collision with enemies (TBD)
+    // check collision with enemies
     int i;
     for (i = 0; i < MAX_OBJECTS; i++)
         if (player_check_collision_obj(pl, &objects[i]))
