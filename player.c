@@ -92,7 +92,7 @@ bool player_check_collision_obj(Object* pl, Object* obj) {
     {
         if (left <= obj->x && obj->x <= right)
         // these are hardcoded values; change later
-            if (top >= obj->y - 5 && obj->y + 5 <= bot)
+            if (top <= obj->y + 5 && obj->y - 5 <= bot)
                 return true;
     }
 
@@ -110,7 +110,7 @@ void player_ai(Object* pl) {
     int i;
     for (i = 0; i < MAX_OBJECTS; i++)
         if (player_check_collision_obj(pl, &objects[i]))
-            *(bool*)(pl->bonus_data) = false; // set player alive to false
+            set_player_alive(false);
 
 
     // finally update the player's position and draw them
