@@ -42,11 +42,15 @@ StartSel start_sel = PLAY;  // initial game state
 enum DeathSel_e {DEATH_SEL_START, DEATH_SEL_ENTER_HIGHSCORE};
 typedef enum DeathSel_e DeathSel;
 DeathSel death_sel = DEATH_SEL_START;  // initial game state
+
+// GLOBAL VARIABLES FOR ENTER HIGHSCORE MENU
 int cursor_x = 0;
 int cursor_y = 0;
 int cursor_blink_time = 0;
 int cursor_blink_max = 2;
 int cursor_on = 0;
+char new_name[3] = "   ";
+int new_name_index = 0;
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -112,10 +116,9 @@ void game(void) {
   }
   
   // display object count
-  char str[16];
-  sprintf(str, "count: %d", object_count);
+  // char str[16];
 
-  display_string(3, str);
+  display_string(3, itoaconv(object_count));
 
 }
 
@@ -180,9 +183,17 @@ void enter_highscore(void) {
     cursor_x--;
   }
 
+  char selected_char = Strings[cursor_y][cursor_x + 1];
   if (cursor_on) {
     Strings[cursor_y][cursor_x + 1] = '_';
   }
+  if (sw_pressed && new_name_index < 3) {
+    new_name[new_name_index] = selected_char;
+    new_name_index++;
+    sw_pressed = 0;
+  }
+
+  display_string(0, new_name);
   display_string(2, Strings[0]);
   display_string(3, Strings[1]);
   
