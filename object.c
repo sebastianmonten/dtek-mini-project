@@ -1,6 +1,8 @@
 #include "object.h"
 int object_count = 0;
 
+#define NULL ((void*)0)
+
 void bounce_ball_ai(Object* ball) {
     update_object_general(ball);
 

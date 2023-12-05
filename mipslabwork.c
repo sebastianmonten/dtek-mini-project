@@ -49,10 +49,23 @@ char textstring[] = "text, more text, and even more text!";
 
 
 void start(void) {
+
+  if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && start_sel == PLAY) {
+    start_sel = SHOW_HIGHSCORES;
+  } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && start_sel == SHOW_HIGHSCORES) {
+    start_sel = PLAY;
+  }
+
   switch (start_sel)
   {
   case PLAY:
-    display_string(1, " PRESS TO PLAY");
+    display_string(1, "> PLAY");
+    display_string(2, "  HIGHSCORES");
+    break;
+
+  case SHOW_HIGHSCORES:
+    display_string(1, "  PLAY");
+    display_string(2, "> HIGHSCORES");
     break;
   
   default:
