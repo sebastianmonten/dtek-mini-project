@@ -120,3 +120,11 @@ void player_ai(Object* pl) {
 
     
 }
+
+bool get_player_alive() {
+    return player_alive;
+}
+
+void set_player_alive(bool val) {
+    player_alive = val;
+}

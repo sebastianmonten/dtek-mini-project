@@ -7,5 +7,8 @@
 Object player;
 
 void player_ai(Object* pl);
+bool player_check_collision_obj(Object* pl, Object* obj);
+bool get_player_alive();
+void set_player_alive(bool val);
 
 #endif
