@@ -44,5 +44,7 @@ void line_obstacle_ai(Object* line);
 
 void add_line_obstacle_horizontal();
 void line_obstacle_horizontal_ai(Object* line);
+void add_portal();
+void portal_ai();
 
 #endif
