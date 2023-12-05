@@ -34,7 +34,7 @@ bool you_pressed = 0;
 // GOBAL VARIABLES FOR GAME STATE
 enum GameState_e {START, HIGHSCORE, GAME, DEATH, ENTER_HIGHSCORE};
 typedef enum GameState_e GameState;
-GameState gamestate = DEATH;
+GameState gamestate = START;
 
 // GLOBAL VARIABLES FOR START MENU
 enum StartSel_e {PLAY, SHOW_HIGHSCORES};
