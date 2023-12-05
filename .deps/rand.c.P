@@ -1,0 +1,2 @@
+rand.c.o: rand.c rand.h
+rand.c rand.h :

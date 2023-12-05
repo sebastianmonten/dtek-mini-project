@@ -11,7 +11,7 @@ mipslabwork.c.o: mipslabwork.c \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/string.h \
  adc.h \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdbool.h \
- player.h object.h
+ player.h object.h rand.h
 mipslabwork.c :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/stdint.h :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdint-gcc.h :
@@ -25,4 +25,4 @@ mipslabwork.c :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/string.h :
  adc.h :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdbool.h :
- player.h object.h :
+ player.h object.h rand.h :

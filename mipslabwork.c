@@ -87,7 +87,7 @@ void reset_cursors(void) {
 void start(void) {
 
   object_count = 0; // reset
-  random_seed = total_time_elapsed;
+  rand_seed = total_time_elapsed;
 
 
   if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && start_sel == PLAY) {

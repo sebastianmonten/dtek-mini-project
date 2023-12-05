@@ -131,7 +131,7 @@ void portal_ai(Object* portal) {
         return;
     }
 
-    int offset = random_range(-2, 2);
+    int offset = rand_range(-2, 2);
 
     put_rectangle(portal->x - 2, portal->y - 11 + offset, portal->x + 2, -2);
     put_rectangle(portal->x - 2, portal->y + 11 + offset, portal->x + 2, SCREEN_HEIGHT + 2);
