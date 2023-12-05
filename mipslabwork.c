@@ -44,6 +44,7 @@ int cursor_x = 0;
 int cursor_y = 0;
 int cursor_blink_time = 0;
 int cursor_blink_max = 10;
+int cursor_on = 1;
 
 // GLOBAL FOR BALL COORD
 int y_global = 0;
@@ -151,14 +152,26 @@ void death(void) {
 void enter_highscore(void) {
   int cursor_x_max = 12;
   int cursor_y_max = 1;
-  // if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && cursor_y <= cursor_y_max) {
-  //   death_sel = DEATH_SEL_ENTER_HIGHSCORE;
-  // } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && death_sel == DEATH_SEL_ENTER_HIGHSCORE) {
-  //   death_sel = DEATH_SEL_START;
-  // }
+  char Strings[2][15] = {" ABCDEFGHIJKLM", " NOPQRSTUVWXYZ"};
 
-  display_string(2, " ABCDEFGHIJKLM");
-  display_string(3, " NOPQRSTUVWXYZ");
+
+  if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && cursor_y < cursor_y_max) {
+    cursor_y++;
+  } else if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && cursor_y > 0) {
+    cursor_y--;
+  }
+  if (joy_x > JOY_X_NEUTRAL+JOY_XY_DEVIATION && cursor_x < cursor_x_max) {
+    cursor_x++;
+  } else if (joy_x < JOY_X_NEUTRAL-JOY_XY_DEVIATION && cursor_x > 0) {
+    cursor_x--;
+  }
+
+  if (cursor_on) {
+    Strings[cursor_y][cursor_x + 1] = '_';
+  }
+  display_string(2, Strings[0]);
+  display_string(3, Strings[1]);
+  
 }
 
 
