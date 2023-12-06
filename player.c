@@ -4,7 +4,7 @@
 #include "mipslabdata.h"
 #include "common.h"
 #define NULL ((void*)0)
-Sprite* sprites[] = {&ball1, &ball2, &ball3};
+Sprite* sprites[] = {&ball1, &ball2, &ball3, &ball2};
 
 Object player = {
     .sprite = &ball1, // from mipslabdata.h
@@ -130,22 +130,13 @@ void player_ai(Object* pl) {
     player_move_script(pl);
 
     int sprite_index = (pl->bonus_data & 0b110) >> 1;
-    int sprite_direction = (pl->bonus_data & 0b1000) ? 1 : -1; 
     
 
-    if (time_since_last_swithced_player_graphics >= time_switch_between_player_graphics) {
-
-
-        if (sprite_index == 0 || sprite_index == 2) {
-            // change direction
-            pl->bonus_data ^= (1 << 3);
-            sprite_direction = -sprite_direction;
-        }
-        sprite_index += sprite_direction;
-        // sprite_index %= 3;
-        pl->sprite = sprites[sprite_index];
-        
-        time_since_last_swithced_player_graphics -= time_switch_between_player_graphics;
+    if (time_since_last_switch_player_graphics >= time_switch_between_player_graphics) {
+        sprite_index++;
+        pl->sprite = sprites[sprite_index % 4];
+        pl->bonus_data &= (~0b110 | (sprite_index << 1));
+        time_since_last_switch_player_graphics -= time_switch_between_player_graphics;
     }
 
     // check collision with enemies
