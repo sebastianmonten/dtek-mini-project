@@ -20,13 +20,14 @@
 #include "adc.h"
 #include "player.h"
 #include "rand.h"
+#include "common.h"
 
 // OUR GLOBAL VARIABLES
 int timeoutcount = 0;
 int prime = 1234567;
 int time_since_last_sw_press = 0;
 int time_debounce = 2;
-int total_time_elapsed = 0; // x 10 milliseconds?
+int total_time_elapsed = 0; // initialize total time counter here
 int game_time = 0;
 
 bool you_pressed = 0;
