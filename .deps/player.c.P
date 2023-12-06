@@ -3,10 +3,10 @@ player.c.o: player.c player.h object.h graphics.h \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdint-gcc.h \
  sprite.h \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdbool.h \
- adc.h mipslabdata.h
+ adc.h mipslabdata.h common.h
 player.c player.h object.h graphics.h :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/stdint.h :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdint-gcc.h :
  sprite.h :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/lib/gcc/mipsel-mcb32-elf/4.9.2/include/stdbool.h :
- adc.h mipslabdata.h :
+ adc.h mipslabdata.h common.h :
