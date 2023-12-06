@@ -5,7 +5,7 @@
 #define NULL ((void*)0)
 
 Object player = {
-    .sprite = &ball, // from mipslabdata.h
+    .sprite = &ball1, // from mipslabdata.h
     .x = 2,
     .y = 2,
     .x_speed = 0,

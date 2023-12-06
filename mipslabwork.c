@@ -36,6 +36,7 @@ bool you_pressed = 0;
 enum GameState_e {START, HIGHSCORE, GAME, DEATH, ENTER_HIGHSCORE};
 typedef enum GameState_e GameState;
 GameState gamestate = START;
+int time_switch_between_player_graphics = 10;
 
 // GLOBAL VARIABLES FOR START MENU
 enum StartSel_e {PLAY, SHOW_HIGHSCORES};
@@ -434,7 +435,12 @@ void user_isr(void)
 
     total_time_elapsed++;
 
-    if (gamestate == GAME) {game_time++;}
+    if (gamestate == GAME) {
+      game_time++;
+      // if (game_time % time_switch_between_player_graphics == 0) {
+      //   if ()
+      // }
+    }
 
 
   }
@@ -463,10 +469,9 @@ void user_isr(void)
     ////////////////////////////////////////////
     timeoutcount = 0;
     if (gamestate == GAME) {add_portal();}
-  }
-
-  else if (timeoutcount == 5 && gamestate == GAME)
+  } else if (timeoutcount == 5 && gamestate == GAME && game_time > 70) {
     add_line_obstacle_horizontal();
+  }
 
 }
 
