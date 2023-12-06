@@ -131,15 +131,19 @@ void player_ai(Object* pl) {
 
     int sprite_index = (pl->bonus_data & 0b110) >> 1;
     int sprite_direction = (pl->bonus_data & 0b1000) ? 1 : -1; 
+    
 
-    if (total_time_elapsed % time_switch_between_player_graphics == 0) {
-        if (sprite_index == 0 || sprite_index == 2) {
-            sprite_direction = !sprite_direction;
-            pl->bonus_data &= ((sprite_direction << 4) | 1);
-        }
-        sprite_index += sprite_direction ? -1 : 1;
-        pl->bonus_data &= ((sprite_index << 1) | 1);
+    if (time_since_last_switch_player_graphics >= time_switch_between_player_graphics) {
+        sprite_index += sprite_direction;
+        sprite_index %= 3;
         pl->sprite = sprites[sprite_index];
+
+        if (sprite_index == 0 || sprite_index == 2) {
+            // change direction
+            pl->bonus_data ^= (1 << 3);
+            sprite_direction = -sprite_direction;
+        }
+        time_since_last_switch_player_graphics -= time_switch_between_player_graphics;
     }
 
     // check collision with enemies
