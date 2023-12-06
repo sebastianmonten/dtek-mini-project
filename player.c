@@ -129,25 +129,24 @@ void player_ai(Object* pl) {
     // handle movement input
     player_move_script(pl);
 
-    // check collision with enemies
-    int i;
-    for (i = 0; i < MAX_OBJECTS; i++)
-        if (player_check_collision_obj(pl, &objects[i]))
-            set_player_alive(false);
-
-
     int sprite_index = (pl->bonus_data & 0b110) >> 1;
     int sprite_direction = (pl->bonus_data & 0b1000) ? 1 : -1; 
 
     if (total_time_elapsed % time_switch_between_player_graphics == 0) {
         if (sprite_index == 0 || sprite_index == 2) {
             sprite_direction = !sprite_direction;
-            pl->bonus_data &= (sprite_direction << 4);
+            pl->bonus_data &= ((sprite_direction << 4) | 1);
         }
         sprite_index += sprite_direction ? -1 : 1;
-        pl->bonus_data &= (sprite_index << 1);
+        pl->bonus_data &= ((sprite_index << 1) | 1);
         pl->sprite = sprites[sprite_index];
     }
+
+    // check collision with enemies
+    int i;
+    for (i = 0; i < MAX_OBJECTS; i++)
+        if (player_check_collision_obj(pl, &objects[i]))
+            set_player_alive(false);
 
     // finally update the player's position and draw them
     update_object_general(pl);
