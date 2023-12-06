@@ -26,7 +26,7 @@
 int timeoutcount = 0;
 int prime = 1234567;
 int time_since_last_sw_press = 0;
-int time_debounce = 2;
+int time_debounce_sw = 1;
 int total_time_elapsed = 0; // initialize total time counter here
 int game_time = 0;
 
@@ -196,21 +196,90 @@ char* concatenateEntryToString(int index) {
     return result;
 }
 
+
+// old function for enter entry
+// void enter_entry(struct Entry scores[], const struct Entry *newEntry) {
+//     // Find the index of the first entry with a lower or equal score
+//     int insertIndex = 0;
+//     while (insertIndex < MAX_ENTRIES && newEntry->score <= scores[insertIndex].score) {
+//         insertIndex++;
+//     }
+
+//     // Shift scores down to make space for the new entry
+//     int i;
+//     for (i = MAX_ENTRIES - 1; i > insertIndex; --i) {
+//         scores[i] = scores[i - 1];
+//     }
+
+//     // Insert the new entry at the correct place
+//     scores[insertIndex] = *newEntry;
+// }
+
+// new function for enter entry
+int compare_names(const char *name1, const char *name2) {
+  int i;
+  for (i = 0; i < 3; ++i) {
+      if (name1[i] < name2[i]) {
+          return -1;
+      } else if (name1[i] > name2[i]) {
+          return 1;
+      } else if (name1[i] == '\0' || name2[i] == '\0') {
+          return 0;
+      }
+  }
+  return 0;  // Names are equal
+}
+
+int find_entry_index(const struct Entry scores[], const char *name) {
+  int i;
+  for (i = 0; i < MAX_ENTRIES; ++i) {
+      if (compare_names(scores[i].name, name) == 0) {
+          return i;  // Entry found
+      }
+  }
+  return -1;  // Entry not found
+}
+
 void enter_entry(struct Entry scores[], const struct Entry *newEntry) {
-    // Find the index of the first entry with a lower score
-    int insertIndex = 0;
-    while (insertIndex < MAX_ENTRIES && newEntry->score <= scores[insertIndex].score) {
-        insertIndex++;
+    // Check if the name already exists in scores
+    int existingIndex = find_entry_index(scores, newEntry->name);
+
+    if (existingIndex != -1) {
+        // Name already exists, compare scores
+        if (newEntry->score > scores[existingIndex].score) {
+            // Update the existing entry with the new score
+            scores[existingIndex].score = newEntry->score;
+        } else {
+            return;  // No need to insert or re-sort if the new score is not higher
+        }
+    } else {
+        // Name does not exist, find the index of the first entry with a lower or equal score
+        int insertIndex = 0;
+        while (insertIndex < MAX_ENTRIES && newEntry->score <= scores[insertIndex].score) {
+            insertIndex++;
+        }
+
+        // Shift scores down to make space for the new entry
+        int i;
+        for (i = MAX_ENTRIES - 1; i > insertIndex; --i) {
+            scores[i] = scores[i - 1];
+        }
+
+        // Insert the new entry at the correct place
+        scores[insertIndex] = *newEntry;
     }
 
-    // Shift scores down to make space for the new entry
+    // Re-sort the scores if needed
     int i;
-    for (i = MAX_ENTRIES - 1; i > insertIndex; --i) {
-        scores[i] = scores[i - 1];
+    for (i = 1; i < MAX_ENTRIES; ++i) {
+        int j = i;
+        struct Entry temp = scores[i];
+        while (j > 0 && temp.score > scores[j - 1].score) {
+            scores[j] = scores[j - 1];
+            --j;
+        }
+        scores[j] = temp;
     }
-
-    // Insert the new entry at the correct place
-    scores[insertIndex] = *newEntry;
 }
 
 void highscores(void) {
@@ -238,7 +307,7 @@ void death(void) {
   for (i = 0; i < MAX_OBJECTS; i++)
     objects[i].active = false;
 
-  display_string(0, "   GAME OVER!");
+  display_string(0, "  GAME OVER!");
   switch (death_sel)
   {
   case DEATH_SEL_START:
@@ -355,7 +424,7 @@ void user_isr(void)
     
     joy_sw = adc_at_pin(10); // A3
     if (joy_sw) {time_since_last_sw_press++;} // increment time since last press if not currently pressed
-    if (joy_sw == 0 & time_since_last_sw_press > time_debounce) {
+    if (joy_sw == 0 & time_since_last_sw_press > time_debounce_sw) {
       sw_pressed = 1;
       time_since_last_sw_press = 0;
     }
