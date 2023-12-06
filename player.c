@@ -106,11 +106,14 @@ bool player_check_collision_obj(Object* pl, Object* obj) {
     // ok, check if obj is a portal
     else if (obj->update_func == portal_ai)
     {
-        // check x collision
-        if (right < obj->x - 5 || left > obj->x + 5)
+        // check x collision: hardcoded value because portal width is always 5
+        if (right <= obj->x - 2 || left >= obj->x + 2)
             return false;
 
-        if (top <= obj->y - 10 || bot >= obj->y + 10)
+        // check y collision: depends on vertical dist of portal walls
+        int vertical_dist = obj->bonus_data & 0b1111;
+
+        if (top <= obj->y - vertical_dist || bot >= obj->y + vertical_dist)
             return true;
     }
 
