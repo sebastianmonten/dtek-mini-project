@@ -136,7 +136,7 @@ void player_ai(Object* pl) {
         sprite_index++;
         sprite_index %= 4;
         pl->sprite = sprites[sprite_index];
-        pl->bonus_data &= (~0b110 | (sprite_index << 1));
+        pl->bonus_data |= (0b110 & (sprite_index << 1));
         time_since_last_swithced_player_graphics -= time_switch_between_player_graphics;
         display_string(0, itoaconv(sprite_index));
         display_buf();
