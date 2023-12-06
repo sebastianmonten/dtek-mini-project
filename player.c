@@ -12,7 +12,7 @@ Object player = {
     .y = 2,
     .x_speed = 0,
     .y_speed = 0,
-    .bonus_data = 1 | 0b00 << 1,
+    .bonus_data = 1 | (0b00 << 1),
     .update_func = player_ai,
     .active = true
 };
@@ -132,11 +132,14 @@ void player_ai(Object* pl) {
     int sprite_index = (pl->bonus_data & 0b110) >> 1;
     
 
-    if (time_since_last_switch_player_graphics >= time_switch_between_player_graphics) {
+    if (time_since_last_swithced_player_graphics >= time_switch_between_player_graphics) {
         sprite_index++;
-        pl->sprite = sprites[sprite_index % 4];
+        sprite_index %= 4;
+        pl->sprite = sprites[sprite_index];
         pl->bonus_data &= (~0b110 | (sprite_index << 1));
-        time_since_last_switch_player_graphics -= time_switch_between_player_graphics;
+        time_since_last_swithced_player_graphics -= time_switch_between_player_graphics;
+        display_string(0, itoaconv(sprite_index));
+        display_buf();
     }
 
     // check collision with enemies
