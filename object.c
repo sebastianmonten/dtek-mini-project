@@ -123,10 +123,13 @@ void add_line_obstacle_horizontal() {
         line->y_speed = -3;
 }
 
+
+// Portals
+// vertical dist between middle of portal and either of its walls is equal to the 4 lsb of its bonus data
 void portal_ai(Object* portal) {
     update_object_general(portal);
 
-    // draw the portal: a rectangle of width 5 at (x, y - 10) and at (x, y + 10)
+    // draw the portal: a rectangle of width 5 at (x, y - vdist) and at (x, y + vdist)
     // the rectangles go slightly out of bounds
 
     if (portal->x > X_MAX + 40 || portal->x < X_MIN - 40) {
@@ -134,13 +137,19 @@ void portal_ai(Object* portal) {
         return;
     }
 
-    put_rectangle(portal->x - 2, portal->y - 11, portal->x + 2, -2);
-    put_rectangle(portal->x - 2, portal->y + 11, portal->x + 2, SCREEN_HEIGHT + 2);
+    int vertical_dist = portal->bonus_data & 0b1111;
+
+    put_rectangle(portal->x - 2, portal->y - vertical_dist, portal->x + 2, -2);
+    put_rectangle(portal->x - 2, portal->y + vertical_dist, portal->x + 2, SCREEN_HEIGHT + 2);
 }
 
+
 void add_portal() {
-    int offset = rand_range(-2, 2);
-    Object* portal = add_object(140, 16 + offset, NULL, portal_ai, 0);
+    int rand_offset = rand_range(-3, 3);
+    
+    // minimum vertical dist is 9.0, as 8.0 would already require pixel perfect precision
+    int vertical_dist = (int) (9.0f + 5000.0f / (1000.0f + (float) total_time_elapsed));
+    Object* portal = add_object(140, 16 + rand_offset, NULL, portal_ai, vertical_dist);
     if (portal)
         portal->x_speed = -3;
 }
