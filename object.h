@@ -16,8 +16,7 @@ struct Object_s {
     int y;
     int x_speed;
     int y_speed;
-    void* bonus_data;
-    int bonus_data_size;
+    int bonus_data;
 
     // update_func is a void function that takes an Object* as its only parameter.
     // i assume most Objects will share a common Update function.
@@ -36,7 +35,7 @@ void update_object(Object* o);
 void draw_object(Object* o);
 void bounce_ball_ai(Object* ball);
 void update_object_general(Object* o);
-Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), void* bonus_data, int bonus_data_size);
+Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), int bonus_data);
 Object* add_blank_object();
 void delete_object(Object* o);
 void add_line_obstacle();

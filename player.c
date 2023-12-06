@@ -4,16 +4,13 @@
 #include "mipslabdata.h"
 #define NULL ((void*)0)
 
-bool player_alive = true;
-
 Object player = {
     .sprite = &ball, // from mipslabdata.h
     .x = 2,
     .y = 2,
     .x_speed = 0,
     .y_speed = 0,
-    .bonus_data = &player_alive,
-    .bonus_data_size = 1,
+    .bonus_data = 1,
     .update_func = player_ai,
     .active = true
 };
@@ -143,9 +140,9 @@ void player_ai(Object* pl) {
 }
 
 bool get_player_alive() {
-    return player_alive;
+    return player.bonus_data & 1;
 }
 
 void set_player_alive(bool val) {
-    player_alive = val;
+    player.bonus_data = (player.bonus_data & ~1) | (val & 1);
 }

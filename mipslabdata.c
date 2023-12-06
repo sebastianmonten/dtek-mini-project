@@ -299,8 +299,7 @@ Object test_ball = {
     .y = 10,
     .x_speed = 4,
     .y_speed = 0,
-    .bonus_data = (void *) 0,
-    .bonus_data_size = 0,
+    .bonus_data = 0,
     .update_func = bounce_ball_ai,
 	.active = true
 };

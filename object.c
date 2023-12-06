@@ -1,5 +1,7 @@
 #include "object.h"
 #include "rand.h"
+#include "common.h"
+
 int object_count = 0;
 
 #define NULL ((void*)0)
@@ -38,7 +40,7 @@ void update_object_general(Object* o) {
 
 
 // returns NULL if there are already too many objects
-Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), void* bonus_data, int bonus_data_size) {
+Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), int bonus_data) {
     int i;
     for (i = 0; i < MAX_OBJECTS; i++)
         if (objects[i].active == false)
@@ -48,7 +50,6 @@ Object* add_object(int x, int y, Sprite* sprite, void (*update_func)(Object*), v
             objects[i].y = y;
             objects[i].sprite = sprite;
             objects[i].bonus_data = bonus_data;
-            objects[i].bonus_data_size = bonus_data_size;
             objects[i].update_func = update_func;
             objects[i].x_speed = 0;
             objects[i].y_speed = 0;
@@ -68,8 +69,7 @@ Object* add_blank_object() {
             objects[i].x = 0;
             objects[i].y = 0;
             objects[i].sprite = NULL;
-            objects[i].bonus_data = NULL;
-            objects[i].bonus_data_size = 0;
+            objects[i].bonus_data = 0;
             objects[i].update_func = NULL;
             objects[i].x_speed = 0;
             objects[i].y_speed = 0;
@@ -85,6 +85,7 @@ void delete_object(Object* o) {
     object_count--;
 }
 
+// deprecated?
 void line_obstacle_ai(Object* line) {
     update_object_general(line);
 
@@ -96,12 +97,14 @@ void line_obstacle_ai(Object* line) {
     put_line_vertical(line->y - 5, line->y + 5, line->x);
 }
 
+// deprecated?
 void add_line_obstacle() {
-    Object* line = add_object(127, 16, NULL, line_obstacle_ai, NULL, 0); 
+    Object* line = add_object(127, 16, NULL, line_obstacle_ai, 0); 
     if (line)
         line->x_speed = -3;
 
 }
+
 
 void line_obstacle_horizontal_ai(Object* line) {
     update_object_general(line);
@@ -115,7 +118,7 @@ void line_obstacle_horizontal_ai(Object* line) {
 }
 
 void add_line_obstacle_horizontal() {
-    Object* line = add_object(40, 60, NULL, line_obstacle_horizontal_ai, NULL, 0);
+    Object* line = add_object(40, 60, NULL, line_obstacle_horizontal_ai, 0);
     if (line)
         line->y_speed = -3;
 }
@@ -137,7 +140,7 @@ void portal_ai(Object* portal) {
 
 void add_portal() {
     int offset = rand_range(-2, 2);
-    Object* portal = add_object(140, 16 + offset, NULL, portal_ai, NULL, 0);
+    Object* portal = add_object(140, 16 + offset, NULL, portal_ai, 0);
     if (portal)
         portal->x_speed = -3;
 }
