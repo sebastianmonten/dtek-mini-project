@@ -36,7 +36,7 @@ bool you_pressed = 0;
 enum GameState_e {START, HIGHSCORE, GAME, DEATH, ENTER_HIGHSCORE};
 typedef enum GameState_e GameState;
 GameState gamestate = START;
-int time_switch_between_player_graphics = 10;
+int time_switch_between_player_graphics = 4;
 int time_since_last_swithced_player_graphics = 0;
 
 // GLOBAL VARIABLES FOR START MENU
@@ -88,6 +88,7 @@ void reset_cursors(void) {
   death_sel = DEATH_SEL_START;
   start_sel = PLAY;
   new_name_index = 0;
+  time_since_last_swithced_player_graphics = 0;
 
   int i;
   for (i = 0; i < 3; i++) {
@@ -117,6 +118,9 @@ void start(void) {
       sw_pressed = 0;
       reset_cursors();
       game_time = 0; // reset game time counter
+      // RESET PLAYER POSITION
+      player.x = 16;
+      player.y = 8;
     }
     break;
 
@@ -157,9 +161,7 @@ void game(void) {
   // display object count
   // char str[16];
 
-  // display_string(3, itoaconv(game_time));
-  int sprite_index = (player.bonus_data & 0b110) >> 1;
-  display_string(3, itoaconv(sprite_index));
+  display_string(3, itoaconv(game_time));
 
 }
 
@@ -437,13 +439,10 @@ void user_isr(void)
     cursor_blink_time++;
 
     total_time_elapsed++;
-    time_since_last_swithced_player_graphics++;
 
     if (gamestate == GAME) {
       game_time++;
-      // if (game_time % time_switch_between_player_graphics == 0) {
-        
-      // }
+      time_since_last_swithced_player_graphics++;
     }
 
 

@@ -139,8 +139,6 @@ void player_ai(Object* pl) {
         pl->bonus_data &= ~0b110;
         pl->bonus_data |= sprite_index << 1;
         time_since_last_swithced_player_graphics -= time_switch_between_player_graphics;
-        display_string(0, itoaconv(sprite_index));
-        display_buf();
     }
 
     // check collision with enemies
