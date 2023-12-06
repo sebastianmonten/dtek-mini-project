@@ -2,15 +2,17 @@
 
 
 #include "mipslabdata.h"
+#include "common.h"
 #define NULL ((void*)0)
+Sprite* sprites[] = {&ball1, &ball2, &ball3};
 
 Object player = {
-    .sprite = &ball, // from mipslabdata.h
+    .sprite = &ball1, // from mipslabdata.h
     .x = 2,
     .y = 2,
     .x_speed = 0,
     .y_speed = 0,
-    .bonus_data = 1,
+    .bonus_data = 1 | 0b00 << 1,
     .update_func = player_ai,
     .active = true
 };
@@ -134,9 +136,23 @@ void player_ai(Object* pl) {
             set_player_alive(false);
 
 
+    int sprite_index = (pl->bonus_data & 0b110) >> 1;
+    int sprite_direction = (pl->bonus_data & 0b1000) ? 1 : -1; 
+
+    if (total_time_elapsed % time_switch_between_player_graphics == 0) {
+        if (sprite_index == 0 || sprite_index == 2) {
+            sprite_direction = !sprite_direction;
+            pl->bonus_data &= (sprite_direction << 4);
+        }
+        sprite_index += sprite_direction ? -1 : 1;
+        pl->bonus_data &= (sprite_index << 1);
+        pl->sprite = sprites[sprite_index];
+    }
+
     // finally update the player's position and draw them
     update_object_general(pl);
 
+    
 
 
     
