@@ -26,16 +26,16 @@ void player_move_script(Object* pl) {
 
     int x_direction, y_direction;
 
-    if (joy_x < JOY_X_NEUTRAL-JOY_XY_DEVIATION)        
+    if (joy_x < JOY_X_NEUTRAL-JOY_XY_DEVIATION && pl->x > 0)        
         x_direction = -1;
-    else if (joy_x > JOY_X_NEUTRAL+JOY_XY_DEVIATION)   
+    else if (joy_x > JOY_X_NEUTRAL+JOY_XY_DEVIATION && pl->x + pl->sprite->width < SCREEN_WIDTH)   
         x_direction = 1;
     else
         x_direction = 0;
     
-    if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION)
+    if (joy_y < JOY_Y_NEUTRAL-JOY_XY_DEVIATION && pl->y > 0)
         y_direction = -1;
-    else if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION)
+    else if (joy_y > JOY_Y_NEUTRAL+JOY_XY_DEVIATION && pl->y + pl->sprite->height < SCREEN_HEIGHT)
         y_direction = 1;
     else
         y_direction = 0;

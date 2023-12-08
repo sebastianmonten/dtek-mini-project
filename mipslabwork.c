@@ -36,7 +36,7 @@ bool you_pressed = 0;
 enum GameState_e {START, HIGHSCORE, GAME, DEATH, ENTER_HIGHSCORE};
 typedef enum GameState_e GameState;
 GameState gamestate = START;
-int time_switch_between_player_graphics = 4;
+int time_switch_between_player_graphics = 1;
 int time_since_last_swithced_player_graphics = 0;
 
 // GLOBAL VARIABLES FOR START MENU
@@ -158,9 +158,7 @@ void game(void) {
     set_player_alive(1);
   }
   
-  // display object count
-  // char str[16];
-
+  // display current game score
   display_string(3, itoaconv(game_time));
 
 }
@@ -512,6 +510,10 @@ void labinit(void)
   // end of int2 initialization
 
   enable_interrupt(); // disabled by seb
+
+  // calibrate adc
+  JOY_X_NEUTRAL = adc_at_pin(4); // A1
+  JOY_Y_NEUTRAL = adc_at_pin(8); // A2
   return;
 }
 

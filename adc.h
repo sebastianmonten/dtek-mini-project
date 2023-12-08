@@ -13,9 +13,9 @@ int adc_setup(void);
 int adc_at_pin(int pin_num);
 
 // GLOBAL VARIABLES FOR JOYSTICK
-#define JOY_X_NEUTRAL (762)
-#define JOY_Y_NEUTRAL (799)
-#define JOY_XY_DEVIATION (10)
+int JOY_X_NEUTRAL;
+int JOY_Y_NEUTRAL;
+#define JOY_XY_DEVIATION (15)
 bool sw_pressed;
 ////
 

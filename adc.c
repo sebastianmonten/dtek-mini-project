@@ -8,6 +8,8 @@
 
 // GLOBAL VARIABLES FOR JOYSTICK
 bool sw_pressed = 0;
+int JOY_X_NEUTRAL = 730;
+int JOY_Y_NEUTRAL = 760;
 ////
 
 
