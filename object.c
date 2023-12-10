@@ -1,3 +1,7 @@
+/*
+    Anders Mouanga 2023
+*/
+
 #include "object.h"
 #include "rand.h"
 #include "common.h"
