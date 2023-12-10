@@ -2,6 +2,8 @@
    This file compiled 2015 by F Lundevall
    from original code written by Axel Isaksson
 
+   Modified and extended by Anders Mouanga and Sebastian Montén 2023
+
    For copyright and licensing, see file COPYING */
 
 #include <stdint.h>   /* Declarations of uint_32 and the like */

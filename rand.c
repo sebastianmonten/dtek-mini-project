@@ -1,3 +1,7 @@
+/*
+    Anders Mouanga 2023
+*/
+
 #include "rand.h"
 
 int rand() {

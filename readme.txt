@@ -1,13 +1,12 @@
-To compile project:
+# dtek-mini-project
 
+## Compile project (requires an MCB32 Terminal)
+```
 make
+```
 
-How to upload to ChipKIT uC32:
-
-make install
-
-If this does not work, try:
-
-make install TTYDEV=/dev/ttyUSB0
-
-where "/dev/ttyUSB0" is the name of the USB serial port connected to the ChipKIT uC32
+## Upload to ChipKIT uC32 (requires an MCB32 Terminal)
+```
+make install TTYDEV=/dev/cu.usbserial-A503Q90J
+```
+where "/dev/cu.usbserial-A503Q90J" is the name of the USB serial port connected to the ChipKIT uC32

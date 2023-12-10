@@ -1,11 +1,10 @@
 /* mipslabmain.c
 
-   This file written 2015 by Axel Isaksson,
+   This file is written 2015 by Axel Isaksson,
    modified 2015, 2017 by F Lundevall
+   modified 2023 by Anders Mouanga and Sebastian Montén
 
-   Latest update 2017-04-21 by F Lundevall
-
-   For copyright and licensing, see file COPYING */
+*/
 
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */

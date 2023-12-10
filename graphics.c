@@ -1,3 +1,7 @@
+/*
+	Anders Mouanga and Sebastian Montén 2023
+*/
+
 #include "graphics.h"
 #include "mipslabdata.h"
 #define SWAP(x, y) do {x ^= y; y ^= x; x ^= y;} while (0); 

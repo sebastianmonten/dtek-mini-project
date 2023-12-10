@@ -1,3 +1,9 @@
+/* 
+	Written by Sebastian Montén 2023
+	This file is based on the provided code example "Hello ADC"
+	https://github.com/is1200-example-projects/hello-adc
+*/
+
 #include <pic32mx.h>
 #include <stdbool.h>
 
