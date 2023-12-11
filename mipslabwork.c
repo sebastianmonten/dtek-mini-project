@@ -464,7 +464,7 @@ void user_isr(void)
     timeoutcount = 0;
     if (gamestate == GAME) {add_portal();}
   } else if (timeoutcount == 5 && gamestate == GAME && game_time > 70) {
-    add_line_obstacle_horizontal();
+    // add_line_obstacle_horizontal();
   }
 
 }
