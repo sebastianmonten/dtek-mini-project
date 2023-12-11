@@ -5,5 +5,6 @@
 int total_time_elapsed;
 int time_switch_between_player_graphics;
 int time_since_last_swithced_player_graphics;
+int game_time;
 
 #endif

@@ -109,6 +109,7 @@ void start(void) {
     if (sw_pressed) {
       gamestate = GAME;
       sw_pressed = 0;
+      // total_time_elapsed = 0; // reset total time since start game
       reset_cursors();
       game_time = 0; // reset game time counter
       // RESET PLAYER POSITION

@@ -152,7 +152,7 @@ void add_portal() {
     int rand_offset = rand_range(-3, 3);
     
     // minimum vertical dist is 9.0, as 8.0 would already require pixel perfect precision
-    int vertical_dist = (int) (9.0f + 5000.0f / (1000.0f + (float) total_time_elapsed));
+    int vertical_dist = (int) (9.0f + 5000.0f / (1000.0f + (float) game_time));
     Object* portal = add_object(140, 16 + rand_offset, NULL, portal_ai, vertical_dist);
     if (portal)
         portal->x_speed = -3;
